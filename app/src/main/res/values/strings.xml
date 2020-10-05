@@ -20,7 +20,8 @@
     <string name="followerCount">Followers: %d</string>
 
     <string name="login">Login</string>
-    <string name="sign_in">Sign In</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="register">Register:</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="confirm_password">Confirm:</string>
 </resources>
