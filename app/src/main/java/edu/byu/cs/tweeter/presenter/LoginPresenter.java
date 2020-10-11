@@ -40,12 +40,5 @@ public class LoginPresenter {
         return loginService.login(loginRequest);
     }
 
-    /**
-     * Makes a regester request.
-     *
-     * @param registerRequest the request to register a new user
-     */
-    public LoginResponse register(RegisterRequest registerRequest) throws IOException {
-        return null;
-    }
+
 }

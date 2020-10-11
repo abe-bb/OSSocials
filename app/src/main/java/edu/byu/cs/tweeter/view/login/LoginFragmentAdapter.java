@@ -1,6 +1,4 @@
-package edu.byu.cs.tweeter.view;
-
-import android.content.res.Resources;
+package edu.byu.cs.tweeter.view.login;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

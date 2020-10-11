@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view;
+package edu.byu.cs.tweeter.view.login;
 
 import android.os.Bundle;
 import android.text.Editable;
