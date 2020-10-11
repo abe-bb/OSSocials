@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.V
 //            }
 //        });
     }
+
 
     /**
      * The callback method that gets invoked for a successful login. Displays the MainActivity.

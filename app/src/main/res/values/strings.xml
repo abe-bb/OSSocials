@@ -20,8 +20,10 @@
     <string name="followerCount">Followers: %d</string>
 
     <string name="login">Login</string>
-    <string name="register">Register:</string>
-    <string name="username">Username:</string>
-    <string name="password">Password:</string>
-    <string name="confirm_password">Confirm:</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="take_profile_photo">Take Profile Photo</string>
 </resources>

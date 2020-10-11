@@ -1,31 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:stretchColumns="1">
-        <TableRow>
-            <TextView
-                android:text="@string/username"/>
-            <EditText
-                android:id="@+id/register_username" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/password"/>
-            <EditText
-                android:id="@+id/register_password"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="@string/confirm_password"/>
-            <EditText
-                android:id="@+id/password_confirmation"/>
-        </TableRow>
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:gravity="center"
+    >
 
-    </TableLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/first_name"
+        android:id="@+id/register_first_name"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/last_name"
+        android:id="@+id/register_last_name"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        android:id="@+id/register_username"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:id="@+id/register_password"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/take_profile_photo"
+        android:id="@+id/register_profile_photo"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorSecondary"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_button"
+        android:layout_marginTop="10dp"
+        android:text="@string/register"
+        android:background="@color/colorSecondary"
+        />
+
 
 </LinearLayout>
