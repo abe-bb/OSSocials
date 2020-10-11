@@ -33,7 +33,7 @@ public class LoginPresenter {
     /**
      * Makes a login request.
      *
-     * @param loginRequest the request.
+     * @param loginRequest the request to login a user
      */
     public LoginResponse login(LoginRequest loginRequest) throws IOException {
         LoginService loginService = new LoginService();
