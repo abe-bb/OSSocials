@@ -29,7 +29,7 @@ public class LoginService {
      *
      * @param user the user whose profile image data is to be loaded.
      */
-    private void loadImage(User user) throws IOException {
+    protected static void loadImage(User user) throws IOException {
         byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
         user.setImageBytes(bytes);
     }

@@ -40,5 +40,4 @@ public class LoginPresenter {
         return loginService.login(loginRequest);
     }
 
-
 }

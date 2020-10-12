@@ -24,7 +24,7 @@ import edu.byu.cs.tweeter.view.asyncTasks.LoginTask;
 import edu.byu.cs.tweeter.view.main.MainActivity;
 
 public class LoginFragment extends Fragment implements LoginPresenter.View, TextWatcher, LoginTask.Observer {
-    private static final String LOG_TAG = "LoginActivity";
+    private static final String LOG_TAG = "LoginFragment";
     private Toast loggingInToast;
     private LoginPresenter presenter;
 
@@ -64,6 +64,11 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Text
         return view;
     }
 
+    /**
+     * Enables the login button when all the required fields are non empty
+     *
+     * @param s the text that changed
+     */
     @Override
     public void afterTextChanged(Editable s) {
         if (username.getText().toString().isEmpty() ||

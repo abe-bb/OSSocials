@@ -9,6 +9,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 
@@ -51,6 +52,15 @@ public class ServerFacade {
      * @return the login response.
      */
     public LoginResponse login(LoginRequest request) {
+        User user = new User("Test", "User",
+                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
+        return new LoginResponse(user, new AuthToken());
+    }
+    /**
+     * Registers a new user, and if successful, returns  the logged in user and an auth token.
+     * Currently returns a hardcoded dummy user, without making any network requests.
+     */
+    public LoginResponse register(RegisterRequest request) {
         User user = new User("Test", "User",
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
         return new LoginResponse(user, new AuthToken());

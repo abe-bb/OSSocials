@@ -28,4 +28,5 @@
     <string name="last_name">Last Name</string>
     <string name="take_profile_photo">Take Profile Photo</string>
     <string name="logging_in">Logging in</string>
+    <string name="registering">Registering</string>
 </resources>
