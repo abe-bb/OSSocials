@@ -7,7 +7,7 @@
     tools:context=".view.main.following.FollowingFragment">
 
     <ImageView
-        android:id="@+id/userImage"
+        android:id="@+id/userPhoto"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/userImage">
+        android:layout_toEndOf="@id/userPhoto">
 
         <TextView
             android:id="@+id/userName"

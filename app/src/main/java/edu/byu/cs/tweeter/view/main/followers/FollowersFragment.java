@@ -23,12 +23,9 @@ import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
-import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.presenter.FollowersPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
-import edu.byu.cs.tweeter.view.asyncTasks.GetFollowingTask;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
@@ -112,7 +109,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
             super(itemView);
 
             if(viewType == ITEM_VIEW) {
-                userImage = itemView.findViewById(R.id.userImage);
+                userImage = itemView.findViewById(R.id.userPhoto);
                 userAlias = itemView.findViewById(R.id.userAlias);
                 userName = itemView.findViewById(R.id.userName);
 

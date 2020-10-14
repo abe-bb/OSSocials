@@ -110,7 +110,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
             super(itemView);
 
             if(viewType == ITEM_VIEW) {
-                userImage = itemView.findViewById(R.id.userImage);
+                userImage = itemView.findViewById(R.id.userPhoto);
                 userAlias = itemView.findViewById(R.id.userAlias);
                 userName = itemView.findViewById(R.id.userName);
 

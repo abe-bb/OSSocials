@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         TextView userAlias = findViewById(R.id.userAlias);
         userAlias.setText(this.displayUser.getAlias());
 
-        ImageView userImageView = findViewById(R.id.userImage);
+        ImageView userImageView = findViewById(R.id.userPhoto);
         userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(this.displayUser.getImageBytes()));
 
         TextView followeeCount = findViewById(R.id.followeeCount);
