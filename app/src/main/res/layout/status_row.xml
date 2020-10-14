@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/status_user_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginHorizontal="20dp"/>
+        <TextView
+            android:id="@+id/status_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Last"
+            android:layout_toRightOf="@id/status_user_image"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:id="@+id/status_user_alias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\@alias"
+            android:layout_below="@id/status_user_name"
+            android:layout_toRightOf="@+id/status_user_image"
+            android:textSize="15sp"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginHorizontal="20dp"
+        android:text="loremipsum et dolor blah de blea ds;lfjaks;d flkjas;d gjhqwwlkjhefnaldkjbhpsjkdfals;kdjf;alkfg;hqlwekrhtpoq;ing;hlaskdjf;lasdkdhgpqoi;whngpal;ksdnvv;laskbkdhp;qoiewwbhug'o[aihjg[aslkdnlasksjgqerg a;sdkkfj; assgj a sdff;j asd;gdj a;lskdjgg ;aslkj a;skdjf ;aslkdjf ;aslkdjf ;aslkdjff a;slkdfja ;sdlkfja;s ddgkj;aslkdfj; a;skldfj asd;fkkja;sdl fja;ksdflj ;asldkfjf ;aslkdgj ;ghioiwhg we efad"
+        />
+
+</LinearLayout>
