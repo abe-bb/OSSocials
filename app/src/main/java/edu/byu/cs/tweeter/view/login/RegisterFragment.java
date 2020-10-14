@@ -46,7 +46,7 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.register_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
         registerButton = view.findViewById(R.id.register_button);
         firstName = view.findViewById(R.id.register_first_name);
         lastName = view.findViewById(R.id.register_last_name);
@@ -112,7 +112,7 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
     public void registerSuccessful(LoginResponse loginResponse) {
         Intent intent = new Intent(getContext(), MainActivity.class);
 
-        intent.putExtra(MainActivity.CURRENT_USER_KEY, loginResponse.getUser());
+        intent.putExtra(MainActivity.LOGGED_IN_USER_KEY, loginResponse.getUser());
         intent.putExtra(MainActivity.AUTH_TOKEN_KEY, loginResponse.getAuthToken());
 
         registeringToast.cancel();

@@ -42,7 +42,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Text
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
         loginButton = view.findViewById(R.id.login_button);
         username = view.findViewById(R.id.login_username);
         password = view.findViewById(R.id.login_password);
@@ -96,7 +96,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Text
     public void loginSuccessful(LoginResponse loginResponse) {
         Intent intent = new Intent(getContext(), MainActivity.class);
 
-        intent.putExtra(MainActivity.CURRENT_USER_KEY, loginResponse.getUser());
+        intent.putExtra(MainActivity.LOGGED_IN_USER_KEY, loginResponse.getUser());
         intent.putExtra(MainActivity.AUTH_TOKEN_KEY, loginResponse.getAuthToken());
 
         loggingInToast.cancel();

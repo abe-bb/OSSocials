@@ -7,9 +7,11 @@ import java.util.List;
 import edu.byu.cs.tweeter.BuildConfig;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 
@@ -137,6 +139,66 @@ public class ServerFacade {
         return followeesIndex;
     }
 
+    public FollowersResponse getFollowers(FollowersRequest request) {
+        // Used in place of assert statements because Android does not support them
+        if(BuildConfig.DEBUG) {
+            if(request.getLimit() < 0) {
+                throw new AssertionError();
+            }
+
+            if(request.getFollowee() == null) {
+                throw new AssertionError();
+            }
+        }
+
+        List<User> allFollowers = getDummyFollowers();
+        List<User> responseFollowers = new ArrayList<>(request.getLimit());
+
+        boolean hasMorePages = false;
+
+        if(request.getLimit() > 0) {
+            int followersIndex = getFollowersStartingIndex(request.getLastFollower(), allFollowers);
+
+            for(int limitCounter = 0; followersIndex < allFollowers.size() && limitCounter < request.getLimit(); followersIndex++, limitCounter++) {
+                responseFollowers.add(allFollowers.get(followersIndex));
+            }
+
+            hasMorePages = followersIndex < allFollowers.size();
+        }
+
+        return new FollowersResponse(responseFollowers, hasMorePages);
+    }
+
+    /**
+     * Determines the index for the first followee in the specified 'allFollowers' list that should
+     * be returned in the current request. This will be the index of the next followee after the
+     * specified 'lastFollowee'.
+     *
+     * @param lastFollowee the last followee that was returned in the previous request or null if
+     *                     there was no previous request.
+     * @param allFollowers the generated list of followees from which we are returning paged results.
+     * @return the index of the first followee to be returned.
+     */
+    private int getFollowersStartingIndex(User lastFollowee, List<User> allFollowers) {
+
+        int followeesIndex = 0;
+
+        if (lastFollowee != null) {
+            // This is a paged request for something after the first page. Find the first item
+            // we should return
+            for (int i = 0; i < allFollowers.size(); i++) {
+                if (lastFollowee.equals(allFollowers.get(i))) {
+                    // We found the index of the last item returned last time. Increment to get
+                    // to the first one we should return
+                    followeesIndex = i + 1;
+                    break;
+                }
+            }
+        }
+
+        return followeesIndex;
+    }
+
     /**
      * Returns the list of dummy followee data. This is written as a separate method to allow
      * mocking of the followees.
@@ -147,5 +209,16 @@ public class ServerFacade {
         return Arrays.asList(user1, user2, user3, user4, user5, user6, user7,
                 user8, user9, user10, user11, user12, user13, user14, user15, user16, user17, user18,
                 user19, user20);
+    }
+
+    /**
+     * Returns the list of dummy follower data. This is written as a separate method to allow
+     * mocking of the followers.
+     *
+     * @return the generator.
+     */
+    List<User> getDummyFollowers() {
+        return Arrays.asList(user20, user19, user18, user17, user16, user15, user14, user13, user12,
+                user11, user10, user9, user8, user7, user6, user5, user4, user3, user2, user1);
     }
 }
