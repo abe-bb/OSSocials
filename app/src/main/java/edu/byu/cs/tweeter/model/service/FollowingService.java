@@ -11,7 +11,7 @@ import edu.byu.cs.tweeter.util.ByteArrayUtils;
 /**
  * Contains the business logic for getting the users a user is following.
  */
-public class FollowingService {
+public class FollowingService extends Service {
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -26,23 +26,13 @@ public class FollowingService {
         FollowingResponse response = getServerFacade().getFollowees(request);
 
         if(response.isSuccess()) {
-            loadImages(response);
+            loadImages(response.getFollowees());
         }
 
         return response;
     }
 
-    /**
-     * Loads the profile image data for each followee included in the response.
-     *
-     * @param response the response from the followee request.
-     */
-    private void loadImages(FollowingResponse response) throws IOException {
-        for(User user : response.getFollowees()) {
-            byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
-            user.setImageBytes(bytes);
-        }
-    }
+
 
     /**
      * Returns an instance of {@link ServerFacade}. Allows mocking of the ServerFacade class for

@@ -12,7 +12,7 @@ import edu.byu.cs.tweeter.util.ByteArrayUtils;
 /**
  * business logic for getting followers
  */
-public class FollowersService {
+public class FollowersService extends Service {
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -27,22 +27,10 @@ public class FollowersService {
         FollowersResponse response = getServerFacade().getFollowers(request);
 
         if (response.isSuccess()) {
-            loadImages(response);
+            loadImages(response.getFollowers());
         }
 
         return response;
-    }
-
-    /**
-     * Loads the profile image data for each followee included in the response.
-     *
-     * @param response the response from the followee request.
-     */
-    private void loadImages(FollowersResponse response) throws IOException {
-        for (User user : response.getFollowers()) {
-            byte[] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
-            user.setImageBytes(bytes);
-        }
     }
 
     /**
