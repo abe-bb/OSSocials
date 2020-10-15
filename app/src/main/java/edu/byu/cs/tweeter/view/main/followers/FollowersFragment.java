@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +27,7 @@ import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.presenter.FollowersPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
+import edu.byu.cs.tweeter.view.main.MainActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
@@ -34,16 +36,14 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
 public class FollowersFragment extends Fragment implements FollowersPresenter.View {
 
     private static final String LOG_TAG = "FollowersFragment";
-    private static final String USER_KEY = "UserKey";
-    private static final String AUTH_TOKEN_KEY = "AuthTokenKey";
+
+    private MainActivity mainActivity;
 
     private static final int LOADING_DATA_VIEW = 0;
     private static final int ITEM_VIEW = 1;
 
     private static final int PAGE_SIZE = 10;
 
-    private User user;
-    private AuthToken authToken;
     private FollowersPresenter presenter;
 
     private FollowersRecyclerViewAdapter followersRecyclerViewAdapter;
@@ -57,14 +57,14 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
      * @return the fragment.
      */
     public static FollowersFragment newInstance(User user, AuthToken authToken) {
-        FollowersFragment fragment = new FollowersFragment();
+        return new FollowersFragment();
+    }
 
-        Bundle args = new Bundle(2);
-        args.putSerializable(USER_KEY, user);
-        args.putSerializable(AUTH_TOKEN_KEY, authToken);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        fragment.setArguments(args);
-        return fragment;
+        mainActivity = (MainActivity) getActivity();
     }
 
     @Override
@@ -72,9 +72,8 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_followers, container, false);
 
-        //noinspection ConstantConditions
-        user = (User) getArguments().getSerializable(USER_KEY);
-        authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
+//        user = (User) getArguments().getSerializable(USER_KEY);
+//        authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
         presenter = new FollowersPresenter(this);
 
@@ -144,6 +143,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
     private class FollowersRecyclerViewAdapter extends RecyclerView.Adapter<FollowersHolder> implements GetFollowersTask.Observer {
 
         private final List<User> users = new ArrayList<>();
+
 
         private User lastFollower;
 
@@ -261,7 +261,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
             addLoadingFooter();
 
             GetFollowersTask getFollowersTask = new GetFollowersTask(presenter, this);
-            FollowersRequest request = new FollowersRequest(user, PAGE_SIZE, lastFollower);
+            FollowersRequest request = new FollowersRequest(mainActivity.getDisplayUser(), PAGE_SIZE, lastFollower);
             getFollowersTask.execute(request);
         }
 

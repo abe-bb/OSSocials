@@ -18,11 +18,31 @@ import java.util.ArrayList;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.view.main.MainActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class FeedFragment extends Fragment {
+    MainActivity mainActivity;
+
+    boolean story;
+
     RecyclerView.LayoutManager layoutManager;
     FeedRecyclerViewAdapter recyclerViewAdapter;
+
+    public static FeedFragment newInstance(boolean story) {
+        return new FeedFragment(story);
+    }
+
+    public FeedFragment(boolean story) {
+        this.story = story;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mainActivity = (MainActivity) getActivity();
+    }
 
     @Nullable
     @Override
@@ -42,6 +62,10 @@ public class FeedFragment extends Fragment {
 
     private class FeedRecyclerViewAdapter extends RecyclerView.Adapter<StatusHolder> {
         ArrayList<Status> stati;
+
+        public FeedRecyclerViewAdapter() {
+            stati = new ArrayList<>();
+        }
 
         @NonNull
         @Override
@@ -81,7 +105,7 @@ public class FeedFragment extends Fragment {
 
         /**
          * binds a status to the status row layout fields
-         * @param status
+         * @param status status to be bound to the view
          */
         public void bindStatus(Status status) {
             User author = status.getAuthor();

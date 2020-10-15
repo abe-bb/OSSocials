@@ -102,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public User getDisplayUser() {
+        return displayUser;
+    }
+
+    public static AuthToken getLoggedInToken() {
+        return LOGGED_IN_TOKEN;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

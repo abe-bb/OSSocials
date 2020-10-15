@@ -3,6 +3,7 @@ package edu.byu.cs.tweeter.view.main.following;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,7 @@ import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowingTask;
+import edu.byu.cs.tweeter.view.main.MainActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
@@ -35,16 +37,14 @@ import edu.byu.cs.tweeter.view.util.ImageUtils;
 public class FollowingFragment extends Fragment implements FollowingPresenter.View {
 
     private static final String LOG_TAG = "FollowingFragment";
-    private static final String USER_KEY = "UserKey";
-    private static final String AUTH_TOKEN_KEY = "AuthTokenKey";
+
+    private MainActivity mainActivity;
 
     private static final int LOADING_DATA_VIEW = 0;
     private static final int ITEM_VIEW = 1;
 
     private static final int PAGE_SIZE = 10;
 
-    private User user;
-    private AuthToken authToken;
     private FollowingPresenter presenter;
 
     private FollowingRecyclerViewAdapter followingRecyclerViewAdapter;
@@ -59,23 +59,20 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
      */
     public static FollowingFragment newInstance(User user, AuthToken authToken) {
         FollowingFragment fragment = new FollowingFragment();
-
-        Bundle args = new Bundle(2);
-        args.putSerializable(USER_KEY, user);
-        args.putSerializable(AUTH_TOKEN_KEY, authToken);
-
-        fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mainActivity = (MainActivity) getActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_following, container, false);
-
-        //noinspection ConstantConditions
-        user = (User) getArguments().getSerializable(USER_KEY);
-        authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
         presenter = new FollowingPresenter(this);
 
@@ -262,7 +259,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
             addLoadingFooter();
 
             GetFollowingTask getFollowingTask = new GetFollowingTask(presenter, this);
-            FollowingRequest request = new FollowingRequest(user, PAGE_SIZE, lastFollowee);
+            FollowingRequest request = new FollowingRequest(mainActivity.getDisplayUser(), PAGE_SIZE, lastFollowee);
             getFollowingTask.execute(request);
         }
 
