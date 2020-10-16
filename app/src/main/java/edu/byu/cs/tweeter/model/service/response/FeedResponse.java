@@ -16,4 +16,8 @@ public class FeedResponse extends PagedResponse {
         super(true, hasMorePages);
         this.stati = stati;
     }
+
+    public List<Status> getStati() {
+        return stati;
+    }
 }

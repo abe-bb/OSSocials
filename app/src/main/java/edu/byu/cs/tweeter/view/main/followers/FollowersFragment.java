@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main.followers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +61,10 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
         return new FollowersFragment();
     }
 
+    public FollowersFragment() {
+        presenter = new FollowersPresenter(this);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +80,6 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
 //        user = (User) getArguments().getSerializable(USER_KEY);
 //        authToken = (AuthToken) getArguments().getSerializable(AUTH_TOKEN_KEY);
 
-        presenter = new FollowersPresenter(this);
 
         RecyclerView followersRecyclerView = view.findViewById(R.id.followersRecyclerView);
 
@@ -94,7 +98,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
      * The ViewHolder for the RecyclerView that displays the Following data.
      */
     private class FollowersHolder extends RecyclerView.ViewHolder {
-
+        private User currentUser;
         private final ImageView userImage;
         private final TextView userAlias;
         private final TextView userName;
@@ -115,7 +119,10 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getContext(), "You selected '" + userName.getText() + "'.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        intent.putExtra(MainActivity.DISPLAY_USER_KEY, currentUser);
+
+                        startActivity(intent);
                     }
                 });
             } else {
@@ -131,6 +138,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
          * @param user the user.
          */
         void bindUser(User user) {
+            currentUser = user; 
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
             userAlias.setText(user.getAlias());
             userName.setText(user.getName());

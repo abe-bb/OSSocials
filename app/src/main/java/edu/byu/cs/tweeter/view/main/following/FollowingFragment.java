@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main.following;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,7 +43,6 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
 
     private static final int LOADING_DATA_VIEW = 0;
     private static final int ITEM_VIEW = 1;
-
     private static final int PAGE_SIZE = 10;
 
     private FollowingPresenter presenter;
@@ -93,7 +93,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
      * The ViewHolder for the RecyclerView that displays the Following data.
      */
     private class FollowingHolder extends RecyclerView.ViewHolder {
-
+        private User currentUser;
         private final ImageView userImage;
         private final TextView userAlias;
         private final TextView userName;
@@ -114,7 +114,10 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getContext(), "You selected '" + userName.getText() + "'.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        intent.putExtra(MainActivity.DISPLAY_USER_KEY, currentUser);
+
+                        startActivity(intent);
                     }
                 });
             } else {
@@ -130,6 +133,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
          * @param user the user.
          */
         void bindUser(User user) {
+            currentUser = user;
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
             userAlias.setText(user.getAlias());
             userName.setText(user.getName());
@@ -276,8 +280,8 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
             lastFollowee = (followees.size() > 0) ? followees.get(followees.size() -1) : null;
             hasMorePages = followingResponse.getHasMorePages();
 
-            isLoading = false;
             removeLoadingFooter();
+            isLoading = false;
             followingRecyclerViewAdapter.addItems(followees);
         }
 

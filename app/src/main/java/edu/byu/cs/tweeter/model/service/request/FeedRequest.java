@@ -26,4 +26,20 @@ public class FeedRequest {
         this.limit = limit;
         this.story = story;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Status getLastStatus() {
+        return lastStatus;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public boolean isStory() {
+        return story;
+    }
 }

@@ -1,6 +1,7 @@
 package edu.byu.cs.tweeter.model.domain;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class Status {
     private User author;
@@ -19,6 +20,12 @@ public class Status {
         this.text = text;
     }
 
+    public Status() {
+        author = null;
+        timeOfAuthorship = null;
+        text = null;
+    }
+
     public User getAuthor() {
         return author;
     }
@@ -29,5 +36,20 @@ public class Status {
 
     public CharSequence getText() {
         return text;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Status status = (Status) o;
+        return Objects.equals(author, status.author) &&
+                Objects.equals(timeOfAuthorship, status.timeOfAuthorship) &&
+                Objects.equals(text, status.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(author, timeOfAuthorship, text);
     }
 }

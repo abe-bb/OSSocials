@@ -31,17 +31,4 @@ public class FollowingService extends Service {
 
         return response;
     }
-
-
-
-    /**
-     * Returns an instance of {@link ServerFacade}. Allows mocking of the ServerFacade class for
-     * testing purposes. All usages of ServerFacade should get their ServerFacade instance from this
-     * method to allow for proper mocking.
-     *
-     * @return the instance.
-     */
-    ServerFacade getServerFacade() {
-        return new ServerFacade();
-    }
 }

@@ -19,10 +19,4 @@ public class RegisterService extends Service {
 
         return response;
     }
-
-    public ServerFacade getServerFacade() {
-        return new ServerFacade();
-    }
-
-
 }
