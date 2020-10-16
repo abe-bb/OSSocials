@@ -9,6 +9,7 @@
 
     <string name="title_activity_main">Tweeter</string>
     <string name="loadingData">Loading More Data…</string>
+    <string name="loading">loading</string>
     <string name="feedTabTitle">Feed</string>
     <string name="storyTabTitle">Story</string>
     <string name="followingTabTitle">Following</string>

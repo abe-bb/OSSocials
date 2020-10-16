@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.feed;
+package edu.byu.cs.tweeter.view.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +26,6 @@ import edu.byu.cs.tweeter.model.service.request.FeedRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
 import edu.byu.cs.tweeter.presenter.FeedPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFeedTask;
-import edu.byu.cs.tweeter.view.main.MainActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 public class FeedFragment extends Fragment {

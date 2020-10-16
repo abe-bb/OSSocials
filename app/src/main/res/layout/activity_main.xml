@@ -39,14 +39,14 @@
                     android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/homePageTitle"
+                    android:text="@string/loading"
                     android:textSize="24sp"/>
 
                 <TextView
                     android:id="@+id/userAlias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/homePageTitle"
+                    android:text="@string/loading"
                     android:textSize="24sp"/>
 
                 <LinearLayout
@@ -58,7 +58,7 @@
                             android:id="@+id/followeeCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/followeeCount"
+                            android:text="@string/loading"
                             android:paddingHorizontal="5sp"/>
 
                     <Space
@@ -70,7 +70,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="24sp"
-                            android:text="@string/followerCount"
+                            android:text="@string/loading"
                             android:paddingHorizontal="5sp"/>
 
                 </LinearLayout>

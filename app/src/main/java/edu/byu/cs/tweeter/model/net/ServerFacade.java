@@ -4,20 +4,28 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import edu.byu.cs.tweeter.BuildConfig;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.domain.UserContextualDetails;
 import edu.byu.cs.tweeter.model.service.request.FeedRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.request.TwitRequest;
+import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.TwitResponse;
+import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
 /**
  * Acts as a Facade to the Tweeter server. All network requests to the server should go through
@@ -340,5 +348,18 @@ public class ServerFacade {
 
     List<Status> getDummyStory() {
         return Arrays.asList(status21, status22, status23, status24, status25);
+    }
+
+    public TwitResponse sendTwit(TwitRequest request) {
+        return new TwitResponse(request.getTwit());
+    }
+
+    public UserDetailResponse getUserDetails(UserDetailRequest request) {
+        UserContextualDetails details = new UserContextualDetails(request.getViewee(), (int) (Math.random() * (100000)), (int) (Math.random() * (100000)), false, request.getViewer());
+        return new UserDetailResponse(details);
+    }
+
+    public FollowResponse follow(FollowRequest request) {
+        return new FollowResponse(true, request.unfollow);
     }
 }

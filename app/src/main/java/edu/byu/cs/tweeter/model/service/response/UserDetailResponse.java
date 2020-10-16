@@ -14,4 +14,8 @@ public class UserDetailResponse extends Response {
         super(false, message);
         this.details = null;
     }
+
+    public UserContextualDetails getDetails() {
+        return details;
+    }
 }

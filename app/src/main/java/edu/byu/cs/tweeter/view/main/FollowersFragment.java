@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.followers;
+package edu.byu.cs.tweeter.view.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +28,6 @@ import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.presenter.FollowersPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
-import edu.byu.cs.tweeter.view.main.MainActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**

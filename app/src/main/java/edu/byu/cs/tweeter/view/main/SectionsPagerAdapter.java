@@ -11,9 +11,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.view.main.feed.FeedFragment;
-import edu.byu.cs.tweeter.view.main.followers.FollowersFragment;
-import edu.byu.cs.tweeter.view.main.following.FollowingFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to one of the sections/tabs/pages

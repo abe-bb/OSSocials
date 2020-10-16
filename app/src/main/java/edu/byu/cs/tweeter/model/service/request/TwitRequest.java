@@ -4,4 +4,8 @@ import edu.byu.cs.tweeter.model.domain.Status;
 
 public class TwitRequest {
     Status twit;
+
+    public Status getTwit() {
+        return twit;
+    }
 }

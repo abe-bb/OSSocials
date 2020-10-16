@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.view.main.following;
+package edu.byu.cs.tweeter.view.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +29,6 @@ import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowingTask;
-import edu.byu.cs.tweeter.view.main.MainActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**

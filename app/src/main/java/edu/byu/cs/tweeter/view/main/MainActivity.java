@@ -11,35 +11,49 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.transition.Explode;
-import android.transition.Fade;
-import android.view.Display;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.domain.UserContextualDetails;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
+import edu.byu.cs.tweeter.presenter.MainPresenter;
+import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
+import edu.byu.cs.tweeter.view.asyncTasks.GetUserDetailTask;
 import edu.byu.cs.tweeter.view.login.LoginActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
  * The main activity for the application. Contains tabs for feed, story, following, and followers.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GetUserDetailTask.Observer, FollowTask.Observer, MainPresenter.View {
+    private static final String LOG_TAG = "MainActivity";
 
     public static String LOGGED_IN_USER_KEY = "CurrentUser";
     public static  String AUTH_TOKEN_KEY = "AuthTokenKey";
     public static String DISPLAY_USER_KEY = "DisplayUser";
     private static User LOGGED_IN_USER;
     private static AuthToken LOGGED_IN_TOKEN;
+    private MainPresenter presenter;
     private User displayUser = null;
+
+    private TextView userName;
+    private TextView userAlias;
+    private ImageView userImage;
+    private TextView followeeCount;
+    private TextView followerCount;
 
     private Button followButton;
 
@@ -47,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        presenter = new MainPresenter(this);
 
         setContentView(R.layout.activity_main);
 
@@ -67,9 +83,7 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException("No valid user passed to activity");
         }
 
-        AuthToken authToken = (AuthToken) getIntent().getSerializableExtra(AUTH_TOKEN_KEY);
-
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), loggedInUser, authToken);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), loggedInUser, LOGGED_IN_TOKEN);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
@@ -77,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
-        // We should use a Java 8 lambda function for the listener (and all other listeners), but
-        // they would be unfamiliar to many students who use this code.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,22 +99,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView userName = findViewById(R.id.userName);
-        userName.setText(this.displayUser.getName());
-
-        TextView userAlias = findViewById(R.id.userAlias);
-        userAlias.setText(this.displayUser.getAlias());
-
-        ImageView userImageView = findViewById(R.id.userPhoto);
-        userImageView.setImageDrawable(ImageUtils.drawableFromByteArray(this.displayUser.getImageBytes()));
-
-        TextView followeeCount = findViewById(R.id.followeeCount);
-        followeeCount.setText(getString(R.string.followeeCount, 42));
-
-        TextView followerCount = findViewById(R.id.followerCount);
-        followerCount.setText(getString(R.string.followerCount, 27));
+        userName = findViewById(R.id.userName);
+        userAlias = findViewById(R.id.userAlias);
+        userImage = findViewById(R.id.userPhoto);
+        followeeCount = findViewById(R.id.followeeCount);
+        followerCount = findViewById(R.id.followerCount);
 
         followButton = findViewById(R.id.follow_button);
+        followButton.setEnabled(false);
+
+        GetUserDetailTask task = new GetUserDetailTask(this, presenter);
+        task.execute(new UserDetailRequest(this.displayUser, LOGGED_IN_USER));
 
         if (this.displayUser == LOGGED_IN_USER) {
             followButton.setVisibility(View.GONE);
@@ -152,5 +159,58 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void userDetailsRetrieved(UserDetailResponse response) {
+        UserContextualDetails details = response.getDetails();
+        User viewee = details.getViewee();
+        userName.setText(String.format("%s %s", viewee.getFirstName(), viewee.getLastName()));
+        userAlias.setText(viewee.getAlias());
+        userImage.setImageDrawable(ImageUtils.drawableFromByteArray(viewee.getImageBytes()));
+        followeeCount.setText(String.format(getString(R.string.followeeCount), details.getNumFollowing()));
+        followerCount.setText(String.format(getString(R.string.followerCount), details.getNumFollowers()));
+
+        if (details.isFollowing()) {
+            followButton.setText(R.string.unfollow);
+        }
+        else {
+            followButton.setText(R.string.follow);
+        }
+        followButton.setOnClickListener((View v) -> {
+            FollowTask task = new FollowTask(this, presenter);
+            FollowRequest request = new FollowRequest(LOGGED_IN_USER, displayUser, details.isFollowing());
+            task.execute(request);
+        });
+
+        followButton.setEnabled(true);
+
+
+
+    }
+
+    @Override
+    public void followComplete(FollowResponse response) {
+        if (response.isSuccess()) {
+            if (response.isUnfollow()) {
+                followButton.setText(R.string.follow);
+            }
+            else {
+                followButton.setText(R.string.unfollow);
+            }
+
+            followButton.setOnClickListener((View v) -> {
+                FollowTask task = new FollowTask(this, presenter);
+                FollowRequest request = new FollowRequest(LOGGED_IN_USER, displayUser, !response.isUnfollow());
+                task.execute(request);
+            });
+            followButton.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void handleException(Exception exception) {
+        Log.e(LOG_TAG, exception.getMessage(), exception);
+        Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
     }
 }
