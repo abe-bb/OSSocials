@@ -10,6 +10,7 @@
         android:background="@color/colorSecondary" />
 
     <RelativeLayout
+        android:id="@+id/user_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp">

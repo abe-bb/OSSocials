@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.view.main.feed;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -217,6 +218,7 @@ public class FeedFragment extends Fragment {
     }
 
     private class StatusHolder extends RecyclerView.ViewHolder {
+        User currentAuthor;
         ImageView photo;
         TextView name;
         TextView alias;
@@ -230,6 +232,17 @@ public class FeedFragment extends Fragment {
                 name = itemView.findViewById(R.id.status_user_name);
                 alias = itemView.findViewById(R.id.status_user_alias);
                 text = itemView.findViewById(R.id.status_text);
+
+                if (!story) {
+                    View clickableView = itemView.findViewById(R.id.user_display);
+
+                    clickableView.setOnClickListener((View v) -> {
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        intent.putExtra(MainActivity.DISPLAY_USER_KEY, currentAuthor);
+
+                        startActivity(intent);
+                    });
+                }
             }
             else {
                 photo = null;
@@ -244,10 +257,10 @@ public class FeedFragment extends Fragment {
          * @param status status to be bound to the view
          */
         public void bindStatus(Status status) {
-            User author = status.getAuthor();
-            photo.setImageDrawable(ImageUtils.drawableFromByteArray(author.getImageBytes()));
-            name.setText(String.format("%s %s", author.getFirstName(), author.getLastName()));
-            alias.setText(author.getAlias());
+            currentAuthor = status.getAuthor();
+            photo.setImageDrawable(ImageUtils.drawableFromByteArray(currentAuthor.getImageBytes()));
+            name.setText(String.format("%s %s", currentAuthor.getFirstName(), currentAuthor.getLastName()));
+            alias.setText(currentAuthor.getAlias());
             text.setText(status.getText());
         }
     }

@@ -12,6 +12,26 @@ public class User implements Comparable<User>, Serializable {
     private final String lastName;
     private final String alias;
     private final String imageUrl;
+    private int numFollowers;
+    private int numFollowing;
+
+    public void setNumFollowers(int numFollowers) {
+        this.numFollowers = numFollowers;
+    }
+
+    public void setNumFollowing(int numFollowing) {
+        this.numFollowing = numFollowing;
+    }
+
+    public User(String firstName, String lastName, String alias, String imageUrl, int numFollowers, int numFollowing) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.alias = alias;
+        this.imageUrl = imageUrl;
+        this.numFollowers = numFollowers;
+        this.numFollowing = numFollowing;
+    }
+
     private byte [] imageBytes;
 
     public User(String firstName, String lastName, String imageURL) {

@@ -11,10 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.transition.Explode;
+import android.transition.Fade;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private static AuthToken LOGGED_IN_TOKEN;
     private User displayUser = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         User loggedInUser = (User) getIntent().getSerializableExtra(LOGGED_IN_USER_KEY);
@@ -99,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
 
+        if (LOGGED_IN_USER.equals(displayUser)) {
+            MenuItem item = menu.findItem(R.id.home_button);
+            item.setVisible(false);
+        }
+        else {
+            MenuItem item = menu.findItem(R.id.home_button);
+            item.setVisible(true);
+        }
+
         return true;
     }
 
@@ -117,11 +132,12 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.LOGGED_IN_TOKEN = null;
                 MainActivity.LOGGED_IN_USER = null;
                 Intent logoutIntent = new Intent(this, LoginActivity.class);
-                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(logoutIntent);
                 return true;
             case R.id.home_button:
                 Intent homeIntent = new Intent(this, MainActivity.class);
+                homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 homeIntent.putExtra(MainActivity.DISPLAY_USER_KEY, LOGGED_IN_USER);
                 startActivity(homeIntent);
             default:

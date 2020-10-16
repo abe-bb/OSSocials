@@ -13,6 +13,8 @@
     <string name="storyTabTitle">Story</string>
     <string name="followingTabTitle">Following</string>
     <string name="followersTabTitle">Followers</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
 
     <string name="sampleAlias">"@UserAlias"</string>
     <string name="sampleUserName">The User</string>

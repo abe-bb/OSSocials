@@ -115,6 +115,8 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
         intent.putExtra(MainActivity.LOGGED_IN_USER_KEY, loginResponse.getUser());
         intent.putExtra(MainActivity.AUTH_TOKEN_KEY, loginResponse.getAuthToken());
 
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
         registeringToast.cancel();
         startActivity(intent);
     }
