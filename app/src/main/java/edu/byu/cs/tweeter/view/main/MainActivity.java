@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private static User LOGGED_IN_USER;
     private static AuthToken LOGGED_IN_TOKEN;
     private User displayUser = null;
+
+    private Button followButton;
 
 
     @Override
@@ -98,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
 
         TextView followerCount = findViewById(R.id.followerCount);
         followerCount.setText(getString(R.string.followerCount, 27));
+
+        followButton = findViewById(R.id.follow_button);
+
+        if (this.displayUser == LOGGED_IN_USER) {
+            followButton.setVisibility(View.GONE);
+        }
     }
 
     @Override

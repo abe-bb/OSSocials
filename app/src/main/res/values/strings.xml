@@ -33,6 +33,12 @@
     <string name="logging_in">Logging in</string>
     <string name="registering">Registering</string>
 
+<!--    Other Strings. I lost track and stopped keeping track -->
     <string name="user_name">%1$s %1$s</string>
     <string name="user_alias">\@%1$s</string>
+
+    <string name="compose_twit">Compose Twit</string>
+    <string name="compose_twit_hint">What would you like to say?</string>
+    <string name="send_twit">Send</string>
+
 </resources>
