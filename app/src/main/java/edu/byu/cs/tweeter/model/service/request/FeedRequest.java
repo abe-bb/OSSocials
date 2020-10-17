@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 
@@ -12,6 +13,7 @@ public class FeedRequest {
     private Status lastStatus;
     private int limit;
     private boolean story;
+    private final AuthToken token;
 
     /**
      * Constructs a new FeedRequest
@@ -20,11 +22,12 @@ public class FeedRequest {
      * @param limit the maximum number of {@link Status} to fetch
      * @param story Whether or not this is a story or a feed Request
      */
-    public FeedRequest(User user, Status lastStatus, int limit, boolean story) {
+    public FeedRequest(User user, Status lastStatus, int limit, boolean story, AuthToken token) {
         this.user = user;
         this.lastStatus = lastStatus;
         this.limit = limit;
         this.story = story;
+        this.token = token;
     }
 
     public User getUser() {

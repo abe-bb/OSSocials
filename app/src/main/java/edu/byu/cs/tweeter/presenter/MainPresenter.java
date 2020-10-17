@@ -4,9 +4,11 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.MainService;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.TwitRequest;
 import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
@@ -33,5 +35,9 @@ public class MainPresenter {
 
     public FollowResponse follow(FollowRequest request) {
         return service.follow(request);
+    }
+
+    public LogoutResponse logout(LogoutRequest request) {
+        return service.logout(request);
     }
 }

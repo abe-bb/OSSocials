@@ -1,13 +1,14 @@
 package edu.byu.cs.tweeter.view.main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,29 +22,41 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.Instant;
+
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.domain.UserContextualDetails;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
+import edu.byu.cs.tweeter.model.service.request.TwitRequest;
 import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
+import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 import edu.byu.cs.tweeter.presenter.MainPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.FollowTask;
 import edu.byu.cs.tweeter.view.asyncTasks.GetUserDetailTask;
+import edu.byu.cs.tweeter.view.asyncTasks.LogoutTask;
+import edu.byu.cs.tweeter.view.asyncTasks.SendTwitTask;
 import edu.byu.cs.tweeter.view.login.LoginActivity;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
 
 /**
  * The main activity for the application. Contains tabs for feed, story, following, and followers.
  */
-public class MainActivity extends AppCompatActivity implements GetUserDetailTask.Observer, FollowTask.Observer, MainPresenter.View {
+public class MainActivity extends AppCompatActivity implements GetUserDetailTask.Observer, FollowTask.Observer, MainPresenter.View, SendTwitTask.Observer, LogoutTask.Observer {
     private static final String LOG_TAG = "MainActivity";
 
-    public static String LOGGED_IN_USER_KEY = "CurrentUser";
-    public static  String AUTH_TOKEN_KEY = "AuthTokenKey";
-    public static String DISPLAY_USER_KEY = "DisplayUser";
+    public static final int TWIT_RESULT = 1;
+
+    public static final String TWIT_EXTRA = "TwitExtra";
+    public static final String LOGGED_IN_USER_KEY = "CurrentUser";
+    public static  final String AUTH_TOKEN_KEY = "AuthTokenKey";
+    public static final String DISPLAY_USER_KEY = "DisplayUser";
     private static User LOGGED_IN_USER;
     private static AuthToken LOGGED_IN_TOKEN;
     private MainPresenter presenter;
@@ -56,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
     private TextView followerCount;
 
     private Button followButton;
+
+    private Toast loggingOutToast;
+    private MenuItem logoutButton;
 
 
     @Override
@@ -90,13 +106,9 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
         tabs.setupWithViewPager(viewPager);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+        fab.setOnClickListener((View v) -> {
+            Intent intent = new Intent(this, ComposeTwitActivity.class);
+            startActivityForResult(intent, TWIT_RESULT);
         });
 
         userName = findViewById(R.id.userName);
@@ -109,10 +121,11 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
         followButton.setEnabled(false);
 
         GetUserDetailTask task = new GetUserDetailTask(this, presenter);
-        task.execute(new UserDetailRequest(this.displayUser, LOGGED_IN_USER));
+        task.execute(new UserDetailRequest(this.displayUser, LOGGED_IN_USER, LOGGED_IN_TOKEN));
 
         if (this.displayUser == LOGGED_IN_USER) {
             followButton.setVisibility(View.GONE);
+
         }
     }
 
@@ -145,11 +158,13 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logoutMenu:
-                MainActivity.LOGGED_IN_TOKEN = null;
-                MainActivity.LOGGED_IN_USER = null;
-                Intent logoutIntent = new Intent(this, LoginActivity.class);
-                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(logoutIntent);
+                item.setEnabled(false);
+                logoutButton = item;
+                loggingOutToast = Toast.makeText(this, R.string.logging_out, Toast.LENGTH_LONG);
+                loggingOutToast.show();
+                LogoutTask task = new LogoutTask(this, presenter);
+                LogoutRequest request = new LogoutRequest(LOGGED_IN_USER, LOGGED_IN_TOKEN);
+                task.execute(request);
                 return true;
             case R.id.home_button:
                 Intent homeIntent = new Intent(this, MainActivity.class);
@@ -158,6 +173,22 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
                 startActivity(homeIntent);
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == TWIT_RESULT) {
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getStringExtra(TWIT_EXTRA);
+
+                SendTwitTask task = new SendTwitTask(this, presenter);
+                Status sendStatus = new Status(LOGGED_IN_USER, Instant.now(), result);
+                TwitRequest request = new TwitRequest(sendStatus, LOGGED_IN_TOKEN);
+                task.execute(request);
+            }
         }
     }
 
@@ -179,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
         }
         followButton.setOnClickListener((View v) -> {
             FollowTask task = new FollowTask(this, presenter);
-            FollowRequest request = new FollowRequest(LOGGED_IN_USER, displayUser, details.isFollowing());
+            FollowRequest request = new FollowRequest(LOGGED_IN_USER, displayUser, details.isFollowing(), LOGGED_IN_TOKEN);
             task.execute(request);
         });
 
@@ -201,11 +232,38 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
 
             followButton.setOnClickListener((View v) -> {
                 FollowTask task = new FollowTask(this, presenter);
-                FollowRequest request = new FollowRequest(LOGGED_IN_USER, displayUser, !response.isUnfollow());
+                FollowRequest request = new FollowRequest(LOGGED_IN_USER, displayUser, !response.isUnfollow(), LOGGED_IN_TOKEN);
                 task.execute(request);
             });
             followButton.setEnabled(true);
         }
+    }
+
+    @Override
+    public void twitSent(TwitResponse response) {
+        Toast.makeText(this, getString(R.string.sent), Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void logoutSuccessful(LogoutResponse response) {
+        MainActivity.LOGGED_IN_TOKEN = null;
+        MainActivity.LOGGED_IN_USER = null;
+        Intent logoutIntent = new Intent(this, LoginActivity.class);
+        logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        logoutButton.setEnabled(true);
+        logoutButton = null;
+        loggingOutToast.cancel();
+        Toast.makeText(this, R.string.logged_out_successfully, Toast.LENGTH_LONG).show(); 
+        startActivity(logoutIntent);
+
+    }
+
+    @Override
+    public void logoutUnsuccessful(LogoutResponse response) {
+        Toast.makeText(this, R.string.logout_failed, Toast.LENGTH_SHORT).show();
+        logoutButton.setEnabled(true);
+        logoutButton = null;
     }
 
     @Override

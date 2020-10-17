@@ -1,7 +1,11 @@
 package edu.byu.cs.tweeter.view.login;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -10,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,10 +30,13 @@ import edu.byu.cs.tweeter.view.main.MainActivity;
 
 public class RegisterFragment extends Fragment implements TextWatcher, RegisterTask.Observer, RegisterPresenter.View {
     private final String LOG_TAG = "RegisterFragment";
-
+    private final int PHOTO_CAPTURE_REQUEST = 1;
     private RegisterPresenter presenter;
 
     Button registerButton;
+    Button photoButton;
+    Bitmap photo;
+    ImageView profilePreview;
     EditText firstName;
     EditText lastName;
     EditText username;
@@ -52,6 +60,8 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
         lastName = view.findViewById(R.id.register_last_name);
         username = view.findViewById(R.id.register_username);
         password = view.findViewById(R.id.register_password);
+        photoButton = view.findViewById(R.id.register_profile_photo);
+        profilePreview = view.findViewById(R.id.profile_preview);
 
         firstName.addTextChangedListener(this);
         lastName.addTextChangedListener(this);
@@ -64,11 +74,22 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
             registeringToast.show();
             RegisterRequest request = new RegisterRequest(firstName.getText().toString(),
                     lastName.getText().toString(), username.getText().toString(),
-                    password.getText().toString());
+                    password.getText().toString(), photo);
 
             RegisterTask registerTask = new RegisterTask(presenter, this);
             registerTask.execute(request);
 
+        });
+
+        photoButton.setOnClickListener((View v) -> {
+            Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            try {
+                startActivityForResult(takePhotoIntent, PHOTO_CAPTURE_REQUEST);
+            }
+            catch (ActivityNotFoundException e) {
+                Toast.makeText(getContext(), getString(R.string.camera_unavailable), Toast.LENGTH_LONG).show();
+                photoButton.setEnabled(false);
+            }
         });
 
         return view;
@@ -101,6 +122,25 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
             registerButton.setEnabled(true);
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PHOTO_CAPTURE_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle extras = data.getExtras();
+                photo = (Bitmap) extras.get("data");
+                profilePreview.setImageBitmap(photo);
+
+                photoButton.setText(R.string.retake_profile_photo);
+                Toast.makeText(getContext(), getString(R.string.profile_photo_set), Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(getContext(), getString(R.string.camera_unavailable), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     /**

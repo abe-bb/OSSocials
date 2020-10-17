@@ -42,7 +42,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
     private static final int LOADING_DATA_VIEW = 0;
     private static final int ITEM_VIEW = 1;
 
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 14;
 
     private FollowersPresenter presenter;
 
@@ -268,7 +268,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
             addLoadingFooter();
 
             GetFollowersTask getFollowersTask = new GetFollowersTask(presenter, this);
-            FollowersRequest request = new FollowersRequest(mainActivity.getDisplayUser(), PAGE_SIZE, lastFollower);
+            FollowersRequest request = new FollowersRequest(mainActivity.getDisplayUser(), PAGE_SIZE, lastFollower, MainActivity.getLoggedInToken());
             getFollowersTask.execute(request);
         }
 

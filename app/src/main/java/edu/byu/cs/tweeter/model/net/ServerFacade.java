@@ -16,6 +16,7 @@ import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.request.TwitRequest;
 import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
@@ -24,6 +25,7 @@ import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
@@ -360,6 +362,10 @@ public class ServerFacade {
     }
 
     public FollowResponse follow(FollowRequest request) {
-        return new FollowResponse(true, request.unfollow);
+        return new FollowResponse(true, request.isUnfollow());
+    }
+
+    public LogoutResponse logout(LogoutRequest request) {
+        return new LogoutResponse(true);
     }
 }

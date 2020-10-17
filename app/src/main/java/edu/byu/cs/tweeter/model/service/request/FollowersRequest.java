@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
 /**
@@ -9,6 +10,8 @@ public class FollowersRequest {
     private final User followee;
     private final int limit;
     private final User lastFollower;
+    private final AuthToken token;
+
 
 
     /**
@@ -16,10 +19,11 @@ public class FollowersRequest {
      * @param limit the maximum number of followers to fetch
      * @param lastFollower the last follower from the last request. Null if none.
      */
-    public FollowersRequest(User followee, int limit, User lastFollower) {
+    public FollowersRequest(User followee, int limit, User lastFollower, AuthToken token) {
         this.followee = followee;
         this.limit = limit;
         this.lastFollower = lastFollower;
+        this.token = token;
     }
 
     public User getFollowee() {

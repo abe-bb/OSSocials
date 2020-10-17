@@ -127,7 +127,7 @@ public class FeedFragment extends Fragment {
             addLoadingFooter();
 
             GetFeedTask task = new GetFeedTask(presenter, this);
-            FeedRequest request = new FeedRequest(mainActivity.getDisplayUser(), lastStatus, PAGE_SIZE, story);
+            FeedRequest request = new FeedRequest(mainActivity.getDisplayUser(), lastStatus, PAGE_SIZE, story, MainActivity.getLoggedInToken());
             task.execute(request);
 
         }

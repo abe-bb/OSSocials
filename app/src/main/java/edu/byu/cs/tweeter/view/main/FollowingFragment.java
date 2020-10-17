@@ -42,7 +42,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
 
     private static final int LOADING_DATA_VIEW = 0;
     private static final int ITEM_VIEW = 1;
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 14;
 
     private FollowingPresenter presenter;
 
@@ -262,7 +262,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
             addLoadingFooter();
 
             GetFollowingTask getFollowingTask = new GetFollowingTask(presenter, this);
-            FollowingRequest request = new FollowingRequest(mainActivity.getDisplayUser(), PAGE_SIZE, lastFollowee);
+            FollowingRequest request = new FollowingRequest(mainActivity.getDisplayUser(), PAGE_SIZE, lastFollowee, MainActivity.getLoggedInToken());
             getFollowingTask.execute(request);
         }
 
