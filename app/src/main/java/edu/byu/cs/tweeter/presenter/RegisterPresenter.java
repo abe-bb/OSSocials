@@ -5,6 +5,7 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.model.service.RegisterService;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
 public class RegisterPresenter {
 
@@ -26,7 +27,7 @@ public class RegisterPresenter {
      *
      * @param registerRequest the request to register a new user
      */
-    public LoginResponse register(RegisterRequest registerRequest) throws IOException {
+    public RegisterResponse register(RegisterRequest registerRequest) throws IOException {
         RegisterService service = new RegisterService();
 
         return service.register(registerRequest);

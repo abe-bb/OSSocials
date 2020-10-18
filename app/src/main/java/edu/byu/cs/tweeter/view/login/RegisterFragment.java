@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 import edu.byu.cs.tweeter.presenter.RegisterPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.RegisterTask;
 import edu.byu.cs.tweeter.view.main.MainActivity;
@@ -146,14 +147,14 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
     /**
      * Called on successful registration. Starts the main application with the newly logged in user
      *
-     * @param loginResponse the response from successful registration
+     * @param registerResponse the response from successful registration
      */
     @Override
-    public void registerSuccessful(LoginResponse loginResponse) {
+    public void registerSuccessful(RegisterResponse registerResponse) {
         Intent intent = new Intent(getContext(), MainActivity.class);
 
-        intent.putExtra(MainActivity.LOGGED_IN_USER_KEY, loginResponse.getUser());
-        intent.putExtra(MainActivity.AUTH_TOKEN_KEY, loginResponse.getAuthToken());
+        intent.putExtra(MainActivity.LOGGED_IN_USER_KEY, registerResponse.getUser());
+        intent.putExtra(MainActivity.AUTH_TOKEN_KEY, registerResponse.getAuthToken());
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -164,11 +165,11 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
     /**
      * Called on unsuccessful registration. Shows a toast with an error message
      *
-     * @param loginResponse the response from the unsuccessful registration
+     * @param registerResponse the response from the unsuccessful registration
      */
     @Override
-    public void registerUnsuccessful(LoginResponse loginResponse) {
-        Toast.makeText(getContext(), "Failed to register. " + loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+    public void registerUnsuccessful(RegisterResponse registerResponse) {
+        Toast.makeText(getContext(), "Failed to register. " + registerResponse.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     /**

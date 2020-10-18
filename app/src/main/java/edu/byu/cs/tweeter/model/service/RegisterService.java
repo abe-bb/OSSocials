@@ -5,13 +5,14 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
 public class RegisterService extends Service {
-    public LoginResponse register(RegisterRequest request) throws IOException {
+    public RegisterResponse register(RegisterRequest request) throws IOException {
         ServerFacade serverFacade = getServerFacade();
 
 
-        LoginResponse response = serverFacade.register(request);
+        RegisterResponse response = serverFacade.register(request);
 
         if (response.isSuccess()) {
             LoginService.loadImage(response.getUser());

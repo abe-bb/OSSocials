@@ -4,16 +4,17 @@ import android.os.AsyncTask;
 
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 import edu.byu.cs.tweeter.presenter.RegisterPresenter;
 
-public class RegisterTask extends AsyncTask<RegisterRequest, Void, LoginResponse> {
+public class RegisterTask extends AsyncTask<RegisterRequest, Void, RegisterResponse> {
     private RegisterPresenter presenter;
     private Observer observer;
     private Exception exception;
 
     public interface Observer {
-        void registerSuccessful(LoginResponse loginResponse);
-        void registerUnsuccessful(LoginResponse loginResponse);
+        void registerSuccessful(RegisterResponse loginResponse);
+        void registerUnsuccessful(RegisterResponse loginResponse);
         void handleException(Exception ex);
     }
 
@@ -23,8 +24,8 @@ public class RegisterTask extends AsyncTask<RegisterRequest, Void, LoginResponse
     }
 
     @Override
-    protected LoginResponse doInBackground(RegisterRequest... registerRequests) {
-        LoginResponse response = null;
+    protected RegisterResponse doInBackground(RegisterRequest... registerRequests) {
+        RegisterResponse response = null;
         try {
             response = presenter.register(registerRequests[0]);
         }
@@ -35,7 +36,7 @@ public class RegisterTask extends AsyncTask<RegisterRequest, Void, LoginResponse
     }
 
     @Override
-    protected void onPostExecute(LoginResponse loginResponse) {
+    protected void onPostExecute(RegisterResponse loginResponse) {
         if (exception != null) {
             observer.handleException(exception);
         }

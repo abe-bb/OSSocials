@@ -26,6 +26,7 @@ import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
@@ -113,8 +114,8 @@ public class ServerFacade {
      * Registers a new user, and if successful, returns  the logged in user and an auth token.
      * Currently returns a hardcoded dummy user, without making any network requests.
      */
-    public LoginResponse register(RegisterRequest request) {
-        return new LoginResponse(user1, new AuthToken());
+    public RegisterResponse register(RegisterRequest request) {
+        return new RegisterResponse(user1, new AuthToken());
     }
 
     /**
