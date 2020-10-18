@@ -1,5 +1,7 @@
 package edu.byu.cs.tweeter.presenter;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.LoginService;
@@ -36,8 +38,15 @@ public class LoginPresenter {
      * @param loginRequest the request to login a user
      */
     public LoginResponse login(LoginRequest loginRequest) throws IOException {
-        LoginService loginService = new LoginService();
+        LoginService loginService = getLoginService();
         return loginService.login(loginRequest);
     }
 
+    /**
+     * allows mocking of the login service
+     * @return new LoginService Object
+     */
+    protected LoginService getLoginService() {
+        return new LoginService();
+    }
 }

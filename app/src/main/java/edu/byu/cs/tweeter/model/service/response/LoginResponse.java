@@ -56,13 +56,14 @@ public class LoginResponse extends Response {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LoginResponse that = (LoginResponse) o;
-        return user.equals(that.user) &&
-                authToken.equals(that.authToken);
+        if (!super.equals(o)) return false;
+        LoginResponse response = (LoginResponse) o;
+        return Objects.equals(user, response.user) &&
+                Objects.equals(authToken, response.authToken);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, authToken);
+        return Objects.hash(super.hashCode(), user, authToken);
     }
 }
