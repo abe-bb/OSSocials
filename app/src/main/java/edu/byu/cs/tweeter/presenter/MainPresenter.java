@@ -26,18 +26,29 @@ public class MainPresenter {
     }
 
     public TwitResponse sendTwit(TwitRequest request) {
+        MainService service = getMainService();
         return service.sendTwit(request);
     }
 
     public UserDetailResponse getUserDetails(UserDetailRequest request) throws IOException {
+        MainService service = getMainService();
         return service.getUserDetails(request);
     }
 
     public FollowResponse follow(FollowRequest request) {
+        MainService service = getMainService();
         return service.follow(request);
     }
 
     public LogoutResponse logout(LogoutRequest request) {
+        MainService service = getMainService();
         return service.logout(request);
+    }
+
+    MainService getMainService() {
+        if (service == null) {
+            service = new MainService();
+        }
+        return service;
     }
 }

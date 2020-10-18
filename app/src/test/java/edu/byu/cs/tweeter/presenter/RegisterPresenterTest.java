@@ -19,7 +19,7 @@ public class RegisterPresenterTest {
     private RegisterResponse validResponse;
     private RegisterResponse invalidResponse;
 
-    private RegisterPresenter RegisterPresenterSpy;
+    private RegisterPresenter registerPresenterSpy;
 
     @BeforeEach
     public void setup() throws IOException {
@@ -36,19 +36,19 @@ public class RegisterPresenterTest {
         Mockito.when(mockRegisterService.register(validRequest)).thenReturn(validResponse);
         Mockito.when(mockRegisterService.register(invalidRequest)).thenReturn(invalidResponse);
 
-        RegisterPresenterSpy = Mockito.spy(new RegisterPresenter(view));
-        Mockito.when(RegisterPresenterSpy.getRegisterService()).thenReturn(mockRegisterService);
+        registerPresenterSpy = Mockito.spy(new RegisterPresenter(view));
+        Mockito.when(registerPresenterSpy.getRegisterService()).thenReturn(mockRegisterService);
     }
 
     @Test
     public void testRegister_validRequest_validResponse() throws IOException {
-        RegisterResponse response = RegisterPresenterSpy.register(validRequest);
+        RegisterResponse response = registerPresenterSpy.register(validRequest);
         Assertions.assertEquals(validResponse, response);
     }
 
     @Test
     public void testRegister_invalidRequest_correctResponse() throws IOException {
-        RegisterResponse response = RegisterPresenterSpy.register(invalidRequest);
+        RegisterResponse response = registerPresenterSpy.register(invalidRequest);
         Assertions.assertEquals(invalidResponse, response);
     }
 }
