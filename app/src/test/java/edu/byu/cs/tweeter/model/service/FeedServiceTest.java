@@ -14,9 +14,7 @@ import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.service.request.FeedRequest;
-import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
-import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 
 public class FeedServiceTest {
     private FeedRequest validRequest;
