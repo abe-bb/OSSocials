@@ -12,21 +12,22 @@ public class TwitResponse extends Response {
         this.postedStatus = postedStatus;
     }
 
-    public TwitResponse(String message) {
-        super(false, message);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         TwitResponse that = (TwitResponse) o;
-        return postedStatus.equals(that.postedStatus);
+        return Objects.equals(postedStatus, that.postedStatus);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), postedStatus);
     }
+
+    public TwitResponse(String message) {
+        super(false, message);
+    }
+
 }

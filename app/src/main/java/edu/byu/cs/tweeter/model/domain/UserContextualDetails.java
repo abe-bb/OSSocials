@@ -1,5 +1,7 @@
 package edu.byu.cs.tweeter.model.domain;
 
+import java.util.Objects;
+
 public class UserContextualDetails {
     User viewee;
     int numFollowers;
@@ -34,5 +36,22 @@ public class UserContextualDetails {
 
     public User getViewer() {
         return viewer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserContextualDetails that = (UserContextualDetails) o;
+        return numFollowers == that.numFollowers &&
+                numFollowing == that.numFollowing &&
+                isFollowing == that.isFollowing &&
+                viewee.equals(that.viewee) &&
+                viewer.equals(that.viewer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(viewee, numFollowers, numFollowing, isFollowing, viewer);
     }
 }

@@ -7,7 +7,7 @@ public class LogoutResponse extends Response {
         super(success);
     }
 
-    public LogoutResponse(boolean success, String message) {
-        super(success, message);
+    public LogoutResponse(String message) {
+        super(false, message);
     }
 }

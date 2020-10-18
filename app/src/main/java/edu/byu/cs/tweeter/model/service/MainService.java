@@ -13,28 +13,30 @@ import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
 public class MainService extends Service {
-    private ServerFacade server;
-
-    public MainService() {
-        server = getServerFacade();
-    }
 
     public TwitResponse sendTwit(TwitRequest request) {
+        ServerFacade server = getServerFacade();
         return server.sendTwit(request);
     }
 
     public UserDetailResponse getUserDetails(UserDetailRequest request) throws IOException {
+        ServerFacade server = getServerFacade();
         UserDetailResponse response = server.getUserDetails(request);
-        loadImage(response.getDetails().getViewee());
+        if (response.isSuccess()) {
+            loadImage(response.getDetails().getViewee());
+        }
         return response;
     }
 
     public FollowResponse follow(FollowRequest request) {
+        ServerFacade server = getServerFacade();
         return server.follow(request);
     }
 
     public LogoutResponse logout(LogoutRequest request) {
-        return server.logout(request);
+        ServerFacade server = getServerFacade();
+        LogoutResponse response = server.logout(request);
+        return response;
     }
 
 
