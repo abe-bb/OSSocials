@@ -11,18 +11,19 @@ import java.util.Arrays;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 
-public class FollowingServiceTest {
+public class FollowersServiceTest {
 
-    private FollowingRequest validRequest;
-    private FollowingRequest invalidRequest;
+    private FollowersRequest validRequest;
+    private FollowersRequest invalidRequest;
 
-    private FollowingResponse successResponse;
-    private FollowingResponse failureResponse;
+    private FollowersResponse successResponse;
+    private FollowersResponse failureResponse;
 
-    private FollowingService followingServiceSpy;
+    private FollowersService followingServiceSpy;
 
     /**
      * Create a FollowingService spy that uses a mock ServerFacade to return known responses to
@@ -40,19 +41,19 @@ public class FollowingServiceTest {
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
         // Setup request objects to use in the tests
-        validRequest = new FollowingRequest(currentUser, 3, null, new AuthToken());
-        invalidRequest = new FollowingRequest(null, 0, null, new AuthToken());
+        validRequest = new FollowersRequest(currentUser, 3, null, new AuthToken());
+        invalidRequest = new FollowersRequest(null, 0, null, new AuthToken());
 
         // Setup a mock ServerFacade that will return known responses
-        successResponse = new FollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
+        successResponse = new FollowersResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
         ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
-        Mockito.when(mockServerFacade.getFollowees(validRequest)).thenReturn(successResponse);
+        Mockito.when(mockServerFacade.getFollowers(validRequest)).thenReturn(successResponse);
 
-        failureResponse = new FollowingResponse("An exception occurred");
-        Mockito.when(mockServerFacade.getFollowees(invalidRequest)).thenReturn(failureResponse);
+        failureResponse = new FollowersResponse("An exception occurred");
+        Mockito.when(mockServerFacade.getFollowers(invalidRequest)).thenReturn(failureResponse);
 
         // Create a FollowingService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new FollowingService());
+        followingServiceSpy = Mockito.spy(new FollowersService());
         Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
@@ -65,7 +66,7 @@ public class FollowingServiceTest {
      */
     @Test
     public void testGetFollowees_validRequest_correctResponse() throws IOException {
-        FollowingResponse response = followingServiceSpy.getFollowees(validRequest);
+        FollowersResponse response = followingServiceSpy.getFollowers(validRequest);
         Assertions.assertEquals(successResponse, response);
     }
 
@@ -77,9 +78,9 @@ public class FollowingServiceTest {
      */
     @Test
     public void testGetFollowees_validRequest_loadsProfileImages() throws IOException {
-        FollowingResponse response = followingServiceSpy.getFollowees(validRequest);
+        FollowersResponse response = followingServiceSpy.getFollowers(validRequest);
 
-        for(User user : response.getFollowees()) {
+        for(User user : response.getFollowers()) {
             Assertions.assertNotNull(user.getImageBytes());
         }
     }
@@ -92,7 +93,8 @@ public class FollowingServiceTest {
      */
     @Test
     public void testGetFollowees_invalidRequest_returnsNoFollowees() throws IOException {
-        FollowingResponse response = followingServiceSpy.getFollowees(invalidRequest);
+        FollowersResponse response = followingServiceSpy.getFollowers(invalidRequest);
         Assertions.assertEquals(failureResponse, response);
     }
+
 }
