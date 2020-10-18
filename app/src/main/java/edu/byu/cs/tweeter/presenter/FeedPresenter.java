@@ -21,7 +21,7 @@ public class FeedPresenter {
         return service.getFeedPage(request);
     }
 
-    private FeedService getFeedService() {
+    FeedService getFeedService() {
         return new FeedService();
     }
 }
