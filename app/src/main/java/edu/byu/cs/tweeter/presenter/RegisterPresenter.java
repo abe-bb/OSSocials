@@ -28,8 +28,12 @@ public class RegisterPresenter {
      * @param registerRequest the request to register a new user
      */
     public RegisterResponse register(RegisterRequest registerRequest) throws IOException {
-        RegisterService service = new RegisterService();
+        RegisterService service = getRegisterService();
 
         return service.register(registerRequest);
+    }
+
+    public RegisterService getRegisterService() {
+        return new RegisterService();
     }
 }
