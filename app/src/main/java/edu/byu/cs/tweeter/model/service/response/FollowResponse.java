@@ -1,5 +1,7 @@
 package edu.byu.cs.tweeter.model.service.response;
 
+import java.util.Objects;
+
 public class FollowResponse extends Response {
     boolean unfollow;
 
@@ -15,5 +17,18 @@ public class FollowResponse extends Response {
 
     public boolean isUnfollow() {
         return unfollow;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FollowResponse that = (FollowResponse) o;
+        return unfollow == that.unfollow;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(unfollow);
     }
 }

@@ -13,8 +13,10 @@ public class FeedService extends Service {
         ServerFacade server = getServerFacade();
 
         FeedResponse response = server.getFeedPage(request);
-        for (Status status : response.getStati()) {
-            loadImage(status.getAuthor());
+        if (response.isSuccess()) {
+            for (Status status : response.getStati()) {
+                loadImage(status.getAuthor());
+            }
         }
         return response;
     }

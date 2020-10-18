@@ -1,5 +1,7 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import java.util.Objects;
+
 /**
  * Contains all the information needed to make a login request.
  */
@@ -35,5 +37,19 @@ public class LoginRequest {
      */
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LoginRequest that = (LoginRequest) o;
+        return username.equals(that.username) &&
+                password.equals(that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password);
     }
 }

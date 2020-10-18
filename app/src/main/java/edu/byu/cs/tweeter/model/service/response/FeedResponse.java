@@ -1,6 +1,7 @@
 package edu.byu.cs.tweeter.model.service.response;
 
 import java.util.List;
+import java.util.Objects;
 
 import edu.byu.cs.tweeter.model.domain.Status;
 
@@ -19,5 +20,18 @@ public class FeedResponse extends PagedResponse {
 
     public List<Status> getStati() {
         return stati;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FeedResponse that = (FeedResponse) o;
+        return stati.equals(that.stati);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stati);
     }
 }

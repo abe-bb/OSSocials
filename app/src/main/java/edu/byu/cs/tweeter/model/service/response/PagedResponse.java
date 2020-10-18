@@ -1,5 +1,7 @@
 package edu.byu.cs.tweeter.model.service.response;
 
+import java.util.Objects;
+
 /**
  * A response that can indicate whether there is more data available from the server.
  */
@@ -26,5 +28,18 @@ public class PagedResponse extends Response {
      */
     public boolean getHasMorePages() {
         return hasMorePages;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PagedResponse that = (PagedResponse) o;
+        return hasMorePages == that.hasMorePages;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hasMorePages);
     }
 }

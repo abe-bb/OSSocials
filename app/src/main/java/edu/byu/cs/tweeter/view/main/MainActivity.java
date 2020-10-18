@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
         logoutButton.setEnabled(true);
         logoutButton = null;
         loggingOutToast.cancel();
-        Toast.makeText(this, R.string.logged_out_successfully, Toast.LENGTH_LONG).show(); 
+        Toast.makeText(this, R.string.logged_out_successfully, Toast.LENGTH_LONG).show();
         startActivity(logoutIntent);
 
     }

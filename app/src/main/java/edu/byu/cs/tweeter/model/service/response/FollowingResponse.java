@@ -43,20 +43,11 @@ public class FollowingResponse extends PagedResponse {
     }
 
     @Override
-    public boolean equals(Object param) {
-        if (this == param) {
-            return true;
-        }
-
-        if (param == null || getClass() != param.getClass()) {
-            return false;
-        }
-
-        FollowingResponse that = (FollowingResponse) param;
-
-        return (Objects.equals(followees, that.followees) &&
-                Objects.equals(this.getMessage(), that.getMessage()) &&
-                this.isSuccess() == that.isSuccess());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FollowingResponse that = (FollowingResponse) o;
+        return followees.equals(that.followees);
     }
 
     @Override

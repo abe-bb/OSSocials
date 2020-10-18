@@ -1,5 +1,7 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import java.util.Objects;
+
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
@@ -36,6 +38,21 @@ public class FollowersRequest {
 
     public User getLastFollower() {
         return lastFollower;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FollowersRequest that = (FollowersRequest) o;
+        return limit == that.limit &&
+                followee.equals(that.followee) &&
+                Objects.equals(lastFollower, that.lastFollower);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(followee, limit, lastFollower);
     }
 }
 

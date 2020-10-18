@@ -25,8 +25,10 @@ public class Service {
      * @param user the user whose profile image data is to be loaded.
      */
     protected static void loadImage(User user) throws IOException {
-        byte [] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
-        user.setImageBytes(bytes);
+        if (user.getImageUrl() != null) {
+            byte[] bytes = ByteArrayUtils.bytesFromUrl(user.getImageUrl());
+            user.setImageBytes(bytes);
+        }
     }
 
 

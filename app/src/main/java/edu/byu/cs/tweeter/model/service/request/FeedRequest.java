@@ -1,5 +1,7 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import java.util.Objects;
+
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
@@ -44,5 +46,21 @@ public class FeedRequest {
 
     public boolean isStory() {
         return story;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FeedRequest request = (FeedRequest) o;
+        return limit == request.limit &&
+                story == request.story &&
+                Objects.equals(user, request.user) &&
+                Objects.equals(lastStatus, request.lastStatus);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, lastStatus, limit, story);
     }
 }
