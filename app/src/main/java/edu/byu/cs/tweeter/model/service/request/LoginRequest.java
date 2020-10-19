@@ -7,17 +7,17 @@ import java.util.Objects;
  */
 public class LoginRequest {
 
-    private final String username;
+    private final String alias;
     private final String password;
 
     /**
      * Creates an instance.
      *
-     * @param username the username of the user to be logged in.
+     * @param alias the username of the user to be logged in.
      * @param password the password of the user to be logged in.
      */
-    public LoginRequest(String username, String password) {
-        this.username = username;
+    public LoginRequest(String alias, String password) {
+        this.alias = alias;
         this.password = password;
     }
 
@@ -26,8 +26,8 @@ public class LoginRequest {
      *
      * @return the username.
      */
-    public String getUsername() {
-        return username;
+    public String getAlias() {
+        return alias;
     }
 
     /**
@@ -44,12 +44,12 @@ public class LoginRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LoginRequest that = (LoginRequest) o;
-        return username.equals(that.username) &&
+        return alias.equals(that.alias) &&
                 password.equals(that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password);
+        return Objects.hash(alias, password);
     }
 }
