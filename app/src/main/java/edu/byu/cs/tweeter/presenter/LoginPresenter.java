@@ -1,13 +1,11 @@
 package edu.byu.cs.tweeter.presenter;
 
-import android.util.Log;
-
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.LoginService;
-import edu.byu.cs.tweeter.model.service.request.LoginRequest;
-import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
-import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.cs.byu.tweeter.shared.request.LoginRequest;
+import edu.cs.byu.tweeter.shared.request.RegisterRequest;
+import edu.cs.byu.tweeter.shared.response.LoginResponse;
 
 /**
  * The presenter for the login functionality of the application.

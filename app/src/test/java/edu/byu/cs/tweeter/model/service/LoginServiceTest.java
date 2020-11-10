@@ -7,11 +7,11 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
+import edu.cs.byu.tweeter.shared.model.AuthToken;
+import edu.cs.byu.tweeter.shared.model.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.service.request.LoginRequest;
-import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.cs.byu.tweeter.shared.request.LoginRequest;
+import edu.cs.byu.tweeter.shared.response.LoginResponse;
 
 public class LoginServiceTest {
 

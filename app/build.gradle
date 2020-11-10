@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "edu.byu.cs.tweeter"
+        applicationId 'edu.byu.cs.tweeter.client'
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
@@ -30,6 +30,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation project(path: ':shared')
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
     testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

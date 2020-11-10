@@ -22,9 +22,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
-import edu.byu.cs.tweeter.model.service.response.LoginResponse;
-import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+import edu.cs.byu.tweeter.shared.request.RegisterRequest;
+import edu.cs.byu.tweeter.shared.response.RegisterResponse;
 import edu.byu.cs.tweeter.presenter.RegisterPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.RegisterTask;
 import edu.byu.cs.tweeter.view.main.MainActivity;

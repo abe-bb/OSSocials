@@ -2,11 +2,9 @@ package edu.byu.cs.tweeter.model.service;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
-import edu.byu.cs.tweeter.util.ByteArrayUtils;
+import edu.cs.byu.tweeter.shared.request.FollowingRequest;
+import edu.cs.byu.tweeter.shared.response.FollowingResponse;
 
 /**
  * Contains the business logic for getting the users a user is following.

@@ -3,8 +3,8 @@ package edu.byu.cs.tweeter.presenter;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.FeedService;
-import edu.byu.cs.tweeter.model.service.request.FeedRequest;
-import edu.byu.cs.tweeter.model.service.response.FeedResponse;
+import edu.cs.byu.tweeter.shared.request.FeedRequest;
+import edu.cs.byu.tweeter.shared.response.FeedResponse;
 
 public class FeedPresenter {
     private View view;

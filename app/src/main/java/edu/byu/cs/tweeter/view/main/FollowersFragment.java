@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
+import edu.cs.byu.tweeter.shared.model.AuthToken;
+import edu.cs.byu.tweeter.shared.model.User;
+import edu.cs.byu.tweeter.shared.request.FollowersRequest;
+import edu.cs.byu.tweeter.shared.response.FollowersResponse;
 import edu.byu.cs.tweeter.presenter.FollowersPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowersTask;
 import edu.byu.cs.tweeter.view.util.ImageUtils;

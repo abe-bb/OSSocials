@@ -3,14 +3,14 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.service.request.FollowRequest;
-import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
-import edu.byu.cs.tweeter.model.service.request.TwitRequest;
-import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowResponse;
-import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
-import edu.byu.cs.tweeter.model.service.response.TwitResponse;
-import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
+import edu.cs.byu.tweeter.shared.request.FollowRequest;
+import edu.cs.byu.tweeter.shared.request.LogoutRequest;
+import edu.cs.byu.tweeter.shared.request.TwitRequest;
+import edu.cs.byu.tweeter.shared.request.UserDetailRequest;
+import edu.cs.byu.tweeter.shared.response.FollowResponse;
+import edu.cs.byu.tweeter.shared.response.LogoutResponse;
+import edu.cs.byu.tweeter.shared.response.TwitResponse;
+import edu.cs.byu.tweeter.shared.response.UserDetailResponse;
 
 public class MainService extends Service {
 

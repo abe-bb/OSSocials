@@ -3,9 +3,8 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
-import edu.byu.cs.tweeter.model.service.response.LoginResponse;
-import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+import edu.cs.byu.tweeter.shared.request.RegisterRequest;
+import edu.cs.byu.tweeter.shared.response.RegisterResponse;
 
 public class RegisterService extends Service {
     public RegisterResponse register(RegisterRequest request) throws IOException {

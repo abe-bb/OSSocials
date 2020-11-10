@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.Status;
-import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.FeedRequest;
-import edu.byu.cs.tweeter.model.service.response.FeedResponse;
+import edu.cs.byu.tweeter.shared.model.Status;
+import edu.cs.byu.tweeter.shared.model.User;
+import edu.cs.byu.tweeter.shared.request.FeedRequest;
+import edu.cs.byu.tweeter.shared.response.FeedResponse;
 import edu.byu.cs.tweeter.presenter.FeedPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFeedTask;
 import edu.byu.cs.tweeter.view.util.ImageUtils;

@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.tweeter.R;
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
+import edu.cs.byu.tweeter.shared.model.AuthToken;
+import edu.cs.byu.tweeter.shared.model.User;
+import edu.cs.byu.tweeter.shared.request.FollowingRequest;
+import edu.cs.byu.tweeter.shared.response.FollowingResponse;
 import edu.byu.cs.tweeter.presenter.FollowingPresenter;
 import edu.byu.cs.tweeter.view.asyncTasks.GetFollowingTask;
 import edu.byu.cs.tweeter.view.util.ImageUtils;
@@ -146,7 +146,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
 
         private final List<User> users = new ArrayList<>();
 
-        private edu.byu.cs.tweeter.model.domain.User lastFollowee;
+        private edu.cs.byu.tweeter.shared.model.User lastFollowee;
 
         private boolean hasMorePages;
         private boolean isLoading = false;

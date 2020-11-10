@@ -8,11 +8,11 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.Arrays;
 
-import edu.byu.cs.tweeter.model.domain.AuthToken;
-import edu.byu.cs.tweeter.model.domain.User;
+import edu.cs.byu.tweeter.shared.model.AuthToken;
+import edu.cs.byu.tweeter.shared.model.User;
 import edu.byu.cs.tweeter.model.service.FollowersService;
-import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
-import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
+import edu.cs.byu.tweeter.shared.request.FollowersRequest;
+import edu.cs.byu.tweeter.shared.response.FollowersResponse;
 
 public class FollowersPresenterTest {
 
