@@ -9,4 +9,7 @@ java {
 
 dependencies {
     implementation project(path: ':shared')
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-core
+    implementation group: 'com.amazonaws', name: 'aws-lambda-java-core', version: '1.2.1'
+
 }

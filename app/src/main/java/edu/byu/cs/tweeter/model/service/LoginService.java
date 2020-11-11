@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 /**
  * Contains the business logic to support the login operation.
  */
-public class LoginService extends Service {
+public class LoginService extends Service implements LoginServiceInterface{
 
     public LoginResponse login(LoginRequest request) throws IOException {
         ServerFacade serverFacade = getServerFacade();

@@ -9,7 +9,7 @@ import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 /**
  * Contains the business logic for getting the users a user is following.
  */
-public class FollowingService extends Service {
+public class FollowingService extends Service implements FollowingServiceInterface {
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in

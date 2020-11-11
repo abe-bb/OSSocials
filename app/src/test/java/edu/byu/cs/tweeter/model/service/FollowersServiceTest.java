@@ -58,7 +58,7 @@ public class FollowersServiceTest {
     }
 
     /**
-     * Verify that for successful requests the {@link FollowingService#getFollowees(FollowingRequest)}
+     * Verify that for successful requests the {@link FollowingServiceInterface#getFollowees(FollowingRequest)}
      * method returns the same result as the {@link ServerFacade}.
      * .
      *
@@ -71,7 +71,7 @@ public class FollowersServiceTest {
     }
 
     /**
-     * Verify that the {@link FollowingService#getFollowees(FollowingRequest)} method loads the
+     * Verify that the {@link FollowingServiceInterface#getFollowees(FollowingRequest)} method loads the
      * profile image of each user included in the result.
      *
      * @throws IOException if an IO error occurs.
@@ -86,7 +86,7 @@ public class FollowersServiceTest {
     }
 
     /**
-     * Verify that for failed requests the {@link FollowingService#getFollowees(FollowingRequest)}
+     * Verify that for failed requests the {@link FollowingServiceInterface#getFollowees(FollowingRequest)}
      * method returns the same result as the {@link ServerFacade}.
      *
      * @throws IOException if an IO error occurs.

@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.FollowingService;
+import edu.byu.cs.tweeter.model.service.FollowingServiceInterface;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 
@@ -18,7 +18,7 @@ public class FollowingPresenterTest {
 
     private FollowingRequest request;
     private FollowingResponse response;
-    private FollowingService mockFollowingService;
+    private FollowingServiceInterface mockFollowingService;
     private FollowingPresenter presenter;
 
     @BeforeEach
@@ -36,7 +36,7 @@ public class FollowingPresenterTest {
         response = new FollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
 
         // Create a mock FollowingService
-        mockFollowingService = Mockito.mock(FollowingService.class);
+        mockFollowingService = Mockito.mock(FollowingServiceInterface.class);
         Mockito.when(mockFollowingService.getFollowees(request)).thenReturn(response);
 
         // Wrap a FollowingPresenter in a spy that will use the mock service.
