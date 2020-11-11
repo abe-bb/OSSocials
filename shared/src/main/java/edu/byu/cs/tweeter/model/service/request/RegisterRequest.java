@@ -1,6 +1,6 @@
 package edu.byu.cs.tweeter.model.service.request;
 
-import android.graphics.Bitmap;
+//import android.graphics.Bitmap;
 
 import java.util.Objects;
 
@@ -9,22 +9,14 @@ public class RegisterRequest {
     private final String lastName;
     private final String alias;
     private final String password;
-    private final Bitmap photo;
+//    private final Bitmap photo;
 
     public RegisterRequest(String firstName, String lastName, String alias, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.alias = alias;
         this.password = password;
-        this.photo = null;
-    }
-
-    public RegisterRequest(String firstName, String lastName, String alias, String password, Bitmap photo) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.alias = alias;
-        this.password = password;
-        this.photo = photo;
+//        this.photo = null;
     }
 
     @Override

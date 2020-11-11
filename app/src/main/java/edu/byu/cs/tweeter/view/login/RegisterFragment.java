@@ -74,7 +74,7 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
             registeringToast.show();
             RegisterRequest request = new RegisterRequest(firstName.getText().toString(),
                     lastName.getText().toString(), username.getText().toString(),
-                    password.getText().toString(), photo);
+                    password.getText().toString());
 
             RegisterTask registerTask = new RegisterTask(presenter, this);
             registerTask.execute(request);

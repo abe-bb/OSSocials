@@ -7,8 +7,10 @@ import java.util.Objects;
  */
 public class LoginRequest {
 
-    private final String alias;
-    private final String password;
+    private String alias;
+    private String password;
+
+    private LoginRequest() {};
 
     /**
      * Creates an instance.

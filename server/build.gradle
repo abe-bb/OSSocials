@@ -1,3 +1,5 @@
+
+
 plugins {
     id 'java-library'
 }
@@ -6,6 +8,9 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 }
+
+apply plugin: 'java-library'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 dependencies {
     implementation project(path: ':shared')

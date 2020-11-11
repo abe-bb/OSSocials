@@ -2,11 +2,11 @@ package edu.byu.cs.tweeter.server.service;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.LoginService;
+import edu.byu.cs.tweeter.model.service.LoginServiceInterface;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 
-public class LoginServiceImpl implements LoginService {
+public class LoginService implements LoginServiceInterface {
 
     @Override
     public LoginResponse login(LoginRequest request) {
