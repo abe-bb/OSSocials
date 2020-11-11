@@ -2,9 +2,8 @@ package edu.byu.cs.tweeter.view.asyncTasks;
 
 import android.os.AsyncTask;
 
-import edu.cs.byu.tweeter.shared.request.TwitRequest;
-import edu.cs.byu.tweeter.shared.request.UserDetailRequest;
-import edu.cs.byu.tweeter.shared.response.UserDetailResponse;
+import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
+import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 import edu.byu.cs.tweeter.presenter.MainPresenter;
 
 public class GetUserDetailTask extends AsyncTask<UserDetailRequest, Void, UserDetailResponse> {

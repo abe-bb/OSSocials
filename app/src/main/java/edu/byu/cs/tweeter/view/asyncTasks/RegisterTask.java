@@ -2,8 +2,8 @@ package edu.byu.cs.tweeter.view.asyncTasks;
 
 import android.os.AsyncTask;
 
-import edu.cs.byu.tweeter.shared.request.RegisterRequest;
-import edu.cs.byu.tweeter.shared.response.RegisterResponse;
+import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 import edu.byu.cs.tweeter.presenter.RegisterPresenter;
 
 public class RegisterTask extends AsyncTask<RegisterRequest, Void, RegisterResponse> {

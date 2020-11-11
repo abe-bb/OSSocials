@@ -4,9 +4,8 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import edu.cs.byu.tweeter.shared.request.FollowersRequest;
-import edu.cs.byu.tweeter.shared.request.FollowingRequest;
-import edu.cs.byu.tweeter.shared.response.FollowersResponse;
+import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.presenter.FollowersPresenter;
 
 public class GetFollowersTask extends AsyncTask<FollowersRequest, Void, FollowersResponse> {

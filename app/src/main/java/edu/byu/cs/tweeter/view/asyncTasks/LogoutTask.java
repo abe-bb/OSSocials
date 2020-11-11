@@ -2,8 +2,8 @@ package edu.byu.cs.tweeter.view.asyncTasks;
 
 import android.os.AsyncTask;
 
-import edu.cs.byu.tweeter.shared.request.LogoutRequest;
-import edu.cs.byu.tweeter.shared.response.LogoutResponse;
+import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
+import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.presenter.MainPresenter;
 
 public class LogoutTask extends AsyncTask<LogoutRequest, Void, LogoutResponse> {

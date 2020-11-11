@@ -5,9 +5,9 @@ import android.util.Log;
 
 import java.io.IOException;
 
-import edu.cs.byu.tweeter.shared.model.User;
-import edu.cs.byu.tweeter.shared.request.LoginRequest;
-import edu.cs.byu.tweeter.shared.response.LoginResponse;
+import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.presenter.LoginPresenter;
 import edu.byu.cs.tweeter.util.ByteArrayUtils;
 

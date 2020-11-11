@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.FollowingService;
 import edu.byu.cs.tweeter.model.service.FollowersService;
-import edu.cs.byu.tweeter.shared.request.FollowersRequest;
-import edu.cs.byu.tweeter.shared.response.FollowersResponse;
+import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 
 public class FollowersPresenter {
 

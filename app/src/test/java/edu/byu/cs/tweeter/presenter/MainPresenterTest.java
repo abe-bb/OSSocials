@@ -8,19 +8,19 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.time.Instant;
 
-import edu.cs.byu.tweeter.shared.model.AuthToken;
-import edu.cs.byu.tweeter.shared.model.Status;
-import edu.cs.byu.tweeter.shared.model.User;
-import edu.cs.byu.tweeter.shared.model.UserContextualDetails;
+import edu.byu.cs.tweeter.model.domain.AuthToken;
+import edu.byu.cs.tweeter.model.domain.Status;
+import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.domain.UserContextualDetails;
 import edu.byu.cs.tweeter.model.service.MainService;
-import edu.cs.byu.tweeter.shared.request.FollowRequest;
-import edu.cs.byu.tweeter.shared.request.LogoutRequest;
-import edu.cs.byu.tweeter.shared.request.TwitRequest;
-import edu.cs.byu.tweeter.shared.request.UserDetailRequest;
-import edu.cs.byu.tweeter.shared.response.FollowResponse;
-import edu.cs.byu.tweeter.shared.response.LogoutResponse;
-import edu.cs.byu.tweeter.shared.response.TwitResponse;
-import edu.cs.byu.tweeter.shared.response.UserDetailResponse;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
+import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
+import edu.byu.cs.tweeter.model.service.request.TwitRequest;
+import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
+import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
+import edu.byu.cs.tweeter.model.service.response.TwitResponse;
+import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
 import static org.mockito.Mockito.when;
 

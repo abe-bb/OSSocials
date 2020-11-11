@@ -3,8 +3,8 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.cs.byu.tweeter.shared.request.FollowersRequest;
-import edu.cs.byu.tweeter.shared.response.FollowersResponse;
+import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 
 /**
  * business logic for getting followers

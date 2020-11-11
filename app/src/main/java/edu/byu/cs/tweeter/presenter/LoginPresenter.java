@@ -3,9 +3,8 @@ package edu.byu.cs.tweeter.presenter;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.service.LoginService;
-import edu.cs.byu.tweeter.shared.request.LoginRequest;
-import edu.cs.byu.tweeter.shared.request.RegisterRequest;
-import edu.cs.byu.tweeter.shared.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 
 /**
  * The presenter for the login functionality of the application.

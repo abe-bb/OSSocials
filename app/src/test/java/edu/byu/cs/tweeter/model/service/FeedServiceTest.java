@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 
-import edu.cs.byu.tweeter.shared.model.AuthToken;
-import edu.cs.byu.tweeter.shared.model.Status;
-import edu.cs.byu.tweeter.shared.model.User;
+import edu.byu.cs.tweeter.model.domain.AuthToken;
+import edu.byu.cs.tweeter.model.domain.Status;
+import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.cs.byu.tweeter.shared.request.FeedRequest;
-import edu.cs.byu.tweeter.shared.response.FeedResponse;
+import edu.byu.cs.tweeter.model.service.request.FeedRequest;
+import edu.byu.cs.tweeter.model.service.response.FeedResponse;
 
 public class FeedServiceTest {
     private FeedRequest validRequest;

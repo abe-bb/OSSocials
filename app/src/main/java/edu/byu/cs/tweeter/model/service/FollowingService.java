@@ -3,8 +3,8 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
-import edu.cs.byu.tweeter.shared.request.FollowingRequest;
-import edu.cs.byu.tweeter.shared.response.FollowingResponse;
+import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 
 /**
  * Contains the business logic for getting the users a user is following.

@@ -2,8 +2,8 @@ package edu.byu.cs.tweeter.view.asyncTasks;
 
 import android.os.AsyncTask;
 
-import edu.cs.byu.tweeter.shared.request.TwitRequest;
-import edu.cs.byu.tweeter.shared.response.TwitResponse;
+import edu.byu.cs.tweeter.model.service.request.TwitRequest;
+import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.presenter.MainPresenter;
 
 public class SendTwitTask extends AsyncTask<TwitRequest, Void, TwitResponse> {
