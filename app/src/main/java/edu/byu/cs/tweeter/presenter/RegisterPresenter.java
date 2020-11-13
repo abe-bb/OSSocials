@@ -2,7 +2,7 @@ package edu.byu.cs.tweeter.presenter;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.service.RegisterService;
+import edu.byu.cs.tweeter.model.service.RegisterServiceProxy;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
@@ -27,12 +27,12 @@ public class RegisterPresenter {
      * @param registerRequest the request to register a new user
      */
     public RegisterResponse register(RegisterRequest registerRequest) throws IOException {
-        RegisterService service = getRegisterService();
+        RegisterServiceProxy service = getRegisterService();
 
         return service.register(registerRequest);
     }
 
-    public RegisterService getRegisterService() {
-        return new RegisterService();
+    public RegisterServiceProxy getRegisterService() {
+        return new RegisterServiceProxy();
     }
 }

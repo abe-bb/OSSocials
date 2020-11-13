@@ -6,7 +6,7 @@ import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
-public class RegisterService extends Service {
+public class RegisterServiceProxy extends Service implements RegisterServiceInterface {
     public RegisterResponse register(RegisterRequest request) throws IOException {
         ServerFacade serverFacade = getServerFacade();
 
@@ -14,7 +14,7 @@ public class RegisterService extends Service {
         RegisterResponse response = serverFacade.register(request);
 
         if (response.isSuccess()) {
-            LoginService.loadImage(response.getUser());
+            LoginServiceProxy.loadImage(response.getUser());
         }
 
         return response;

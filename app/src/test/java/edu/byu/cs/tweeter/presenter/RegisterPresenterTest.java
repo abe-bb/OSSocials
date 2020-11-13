@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.RegisterService;
+import edu.byu.cs.tweeter.model.service.RegisterServiceProxy;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
@@ -30,14 +30,14 @@ public class RegisterPresenterTest {
         validResponse = new RegisterResponse(user1, new AuthToken("bleeBlah"));
         invalidResponse = new RegisterResponse("alias already in use.");
 
-        RegisterService mockRegisterService = Mockito.mock(RegisterService.class);
+        RegisterServiceProxy mockRegisterServiceProxy = Mockito.mock(RegisterServiceProxy.class);
         RegisterPresenter.View view = new RegisterPresenter.View() {};
 
-        Mockito.when(mockRegisterService.register(validRequest)).thenReturn(validResponse);
-        Mockito.when(mockRegisterService.register(invalidRequest)).thenReturn(invalidResponse);
+        Mockito.when(mockRegisterServiceProxy.register(validRequest)).thenReturn(validResponse);
+        Mockito.when(mockRegisterServiceProxy.register(invalidRequest)).thenReturn(invalidResponse);
 
         registerPresenterSpy = Mockito.spy(new RegisterPresenter(view));
-        Mockito.when(registerPresenterSpy.getRegisterService()).thenReturn(mockRegisterService);
+        Mockito.when(registerPresenterSpy.getRegisterService()).thenReturn(mockRegisterServiceProxy);
     }
 
     @Test

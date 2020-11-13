@@ -13,13 +13,13 @@ import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
-public class RegisterServiceTest {
+public class RegisterServiceProxyTest {
     private RegisterRequest validRequest;
     private RegisterRequest invalidRequest;
     private RegisterResponse validResponse;
     private RegisterResponse invalidResponse;
 
-    private RegisterService registerServiceSpy;
+    private RegisterServiceProxy registerServiceProxySpy;
 
     @BeforeEach
     public void setup() {
@@ -35,19 +35,19 @@ public class RegisterServiceTest {
         Mockito.when(mockServerFacade.register(validRequest)).thenReturn(validResponse);
         Mockito.when(mockServerFacade.register(invalidRequest)).thenReturn(invalidResponse);
 
-        registerServiceSpy = Mockito.spy(new RegisterService());
-        Mockito.when(registerServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        registerServiceProxySpy = Mockito.spy(new RegisterServiceProxy());
+        Mockito.when(registerServiceProxySpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
     public void testRegister_validRequest_validResponse() throws IOException {
-        RegisterResponse response = registerServiceSpy.register(validRequest);
+        RegisterResponse response = registerServiceProxySpy.register(validRequest);
         Assertions.assertEquals(validResponse, response);
     }
 
     @Test
     public void testRegister_invalidRequest_correctResponse() throws IOException {
-        RegisterResponse response = registerServiceSpy.register(invalidRequest);
+        RegisterResponse response = registerServiceProxySpy.register(invalidRequest);
         Assertions.assertEquals(invalidResponse, response);
     }
 }

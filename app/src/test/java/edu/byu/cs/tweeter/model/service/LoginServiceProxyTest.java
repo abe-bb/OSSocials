@@ -14,7 +14,7 @@ import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 
-public class LoginServiceTest {
+public class LoginServiceProxyTest {
 
     private LoginRequest validRequest;
     private LoginRequest invalidRequest;
@@ -22,7 +22,7 @@ public class LoginServiceTest {
     private LoginResponse validResponse;
     private LoginResponse invalidResponse;
 
-    private LoginService loginServiceSpy;
+    private LoginServiceProxy loginServiceProxySpy;
 
     @BeforeEach
     public void setup() throws TweeterRemoteException {
@@ -37,19 +37,19 @@ public class LoginServiceTest {
         Mockito.when(mockServerFacade.login(validRequest)).thenReturn(validResponse);
         Mockito.when(mockServerFacade.login(invalidRequest)).thenReturn(invalidResponse);
 
-        loginServiceSpy = Mockito.spy(new LoginService());
-        Mockito.when(loginServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        loginServiceProxySpy = Mockito.spy(new LoginServiceProxy());
+        Mockito.when(loginServiceProxySpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
     @Test
     public void testLogin_validRequest_validResponse() throws IOException, TweeterRemoteException {
-        LoginResponse response = loginServiceSpy.login(validRequest);
+        LoginResponse response = loginServiceProxySpy.login(validRequest);
         Assertions.assertEquals(validResponse, response);
     }
 
     @Test
     public void testLogin_invalidRequest_correctResponse() throws IOException, TweeterRemoteException {
-        LoginResponse response = loginServiceSpy.login(invalidRequest);
+        LoginResponse response = loginServiceProxySpy.login(invalidRequest);
         Assertions.assertEquals(invalidResponse, response);
     }
 }

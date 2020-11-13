@@ -7,16 +7,20 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.LoginServiceInterface;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.server.dao.LoginDAO;
 
-public class LoginService implements LoginServiceInterface {
+public class LoginService extends AuthenticationService implements LoginServiceInterface {
 
     @Override
     public LoginResponse login(LoginRequest request) {
+        LoginDAO dao = getLoginDAO();
+        String hashedPassword = hashPassword(request.getPassword());
+        User user = dao.authenticateUser(request.getAlias(), hashedPassword);
 
-        // TODO: Generates dummy data. Replace with a real implementation.
-        User user = new User("Bloopy", "Noopy",
-                "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png");
-        AuthToken token = new AuthToken("testToken");
-        return new LoginResponse(user, token);
+        return new LoginResponse(user, dao.getToken(user));
+    }
+
+    LoginDAO getLoginDAO() {
+        return new LoginDAO();
     }
 }

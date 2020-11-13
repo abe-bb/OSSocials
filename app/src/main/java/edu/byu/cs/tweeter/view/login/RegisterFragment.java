@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.io.ByteArrayOutputStream;
+
 import edu.byu.cs.tweeter.R;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
@@ -72,9 +74,19 @@ public class RegisterFragment extends Fragment implements TextWatcher, RegisterT
         registerButton.setOnClickListener((View v) -> {
             registeringToast = Toast.makeText(getContext(), getResources().getText(R.string.registering), Toast.LENGTH_LONG);
             registeringToast.show();
-            RegisterRequest request = new RegisterRequest(firstName.getText().toString(),
-                    lastName.getText().toString(), username.getText().toString(),
-                    password.getText().toString());
+            RegisterRequest request;
+            if (photo == null) {
+                request = new RegisterRequest(firstName.getText().toString(),
+                        lastName.getText().toString(), username.getText().toString(),
+                        password.getText().toString(), null);
+            }
+            else {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                request = new RegisterRequest(firstName.getText().toString(),
+                        lastName.getText().toString(), username.getText().toString(),
+                        password.getText().toString(), stream.toByteArray());
+            }
 
             RegisterTask registerTask = new RegisterTask(presenter, this);
             registerTask.execute(request);

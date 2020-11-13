@@ -10,7 +10,7 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.LoginService;
+import edu.byu.cs.tweeter.model.service.LoginServiceProxy;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 
@@ -33,13 +33,13 @@ public class LoginPresenterTest {
         validResponse = new LoginResponse(new User("testyMcTestFace"), new AuthToken("Bleeblah"));
         invalidResponse = new LoginResponse("An error has occurred");
 
-        LoginService mockLoginService = Mockito.mock(LoginService.class);
-        Mockito.when(mockLoginService.login(validRequest)).thenReturn(validResponse);
-        Mockito.when(mockLoginService.login(invalidRequest)).thenReturn(invalidResponse);
+        LoginServiceProxy mockLoginServiceProxy = Mockito.mock(LoginServiceProxy.class);
+        Mockito.when(mockLoginServiceProxy.login(validRequest)).thenReturn(validResponse);
+        Mockito.when(mockLoginServiceProxy.login(invalidRequest)).thenReturn(invalidResponse);
 
         LoginPresenter.View view = new LoginPresenter.View() {};
         LoginPresenterSpy = Mockito.spy(new LoginPresenter(view));
-        Mockito.when(LoginPresenterSpy.getLoginService()).thenReturn(mockLoginService);
+        Mockito.when(LoginPresenterSpy.getLoginService()).thenReturn(mockLoginServiceProxy);
     }
 
     @Test
