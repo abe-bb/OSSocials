@@ -38,9 +38,9 @@ public class FeedServiceTest {
         statuses.add(new  Status(feedAuthor1, Instant.now(), "world!"));
         statuses.add(new  Status(feedAuthor2, Instant.now(), "G'day m8!"));
 
-        validRequest = new FeedRequest(currentUser, null, 2, false, new AuthToken());
-        validStoryFeedRequest = new FeedRequest(currentUser, null, 2, true, new AuthToken());
-        invalidRequest = new FeedRequest(null, null, 2, false, new AuthToken());
+        validRequest = new FeedRequest(currentUser, null, 2, false, new AuthToken("bleeBlah"));
+        validStoryFeedRequest = new FeedRequest(currentUser, null, 2, true, new AuthToken("bleeBlah"));
+        invalidRequest = new FeedRequest(null, null, 2, false, new AuthToken("bleeBlah"));
 
         successResponse = new FeedResponse(statuses, true);
         validStoryFeedResponse = new FeedResponse(statuses, true);

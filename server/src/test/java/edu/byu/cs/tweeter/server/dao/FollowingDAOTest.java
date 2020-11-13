@@ -1,4 +1,4 @@
-package edu.byu.cs.tweeter.model.net;
+package edu.byu.cs.tweeter.server.dao;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 
-class ServerFacadeTest {
+class FollowingDAOTest {
 
     private final User user1 = new User("Daffy", "Duck", "");
     private final User user2 = new User("Fred", "Flintstone", "");
@@ -25,20 +25,20 @@ class ServerFacadeTest {
     private final User user7 = new User("Harriett", "Hansen", "");
     private final User user8 = new User("Zoe", "Zabriski", "");
 
-    private ServerFacade serverFacadeSpy;
+    private FollowingDAO followingDAOSpy;
 
     @BeforeEach
     void setup() {
-        serverFacadeSpy = Mockito.spy(new ServerFacade());
+        followingDAOSpy = Mockito.spy(new FollowingDAO());
     }
 
     @Test
     void testGetFollowees_noFolloweesForUser() {
         List<User> followees = Collections.emptyList();
-        Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
+        Mockito.when(followingDAOSpy.getDummyFollowees()).thenReturn(followees);
 
-        FollowingRequest request = new FollowingRequest(user1, 10, null, new AuthToken("bleeBlah"));
-        FollowingResponse response = serverFacadeSpy.getFollowees(request);
+        FollowingRequest request = new FollowingRequest(user1, 10, null);
+        FollowingResponse response = followingDAOSpy.getFollowees(request);
 
         Assertions.assertEquals(0, response.getFollowees().size());
         Assertions.assertFalse(response.getHasMorePages());
@@ -47,10 +47,10 @@ class ServerFacadeTest {
     @Test
     void testGetFollowees_oneFollowerForUser_limitGreaterThanUsers() {
         List<User> followees = Collections.singletonList(user2);
-        Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
+        Mockito.when(followingDAOSpy.getDummyFollowees()).thenReturn(followees);
 
-        FollowingRequest request = new FollowingRequest(user1, 10, null, new AuthToken("bleeBlah"));
-        FollowingResponse response = serverFacadeSpy.getFollowees(request);
+        FollowingRequest request = new FollowingRequest(user1, 10, null);
+        FollowingResponse response = followingDAOSpy.getFollowees(request);
 
         Assertions.assertEquals(1, response.getFollowees().size());
         Assertions.assertTrue(response.getFollowees().contains(user2));
@@ -60,10 +60,10 @@ class ServerFacadeTest {
     @Test
     void testGetFollowees_twoFollowersForUser_limitEqualsUsers() {
         List<User> followees = Arrays.asList(user2, user3);
-        Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
+        Mockito.when(followingDAOSpy.getDummyFollowees()).thenReturn(followees);
 
-        FollowingRequest request = new FollowingRequest(user3, 2, null, new AuthToken("bleeBlah"));
-        FollowingResponse response = serverFacadeSpy.getFollowees(request);
+        FollowingRequest request = new FollowingRequest(user3, 2, null);
+        FollowingResponse response = followingDAOSpy.getFollowees(request);
 
         Assertions.assertEquals(2, response.getFollowees().size());
         Assertions.assertTrue(response.getFollowees().contains(user2));
@@ -74,10 +74,10 @@ class ServerFacadeTest {
     @Test
     void testGetFollowees_limitLessThanUsers_endsOnPageBoundary() {
         List<User> followees = Arrays.asList(user2, user3, user4, user5, user6, user7);
-        Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
+        Mockito.when(followingDAOSpy.getDummyFollowees()).thenReturn(followees);
 
-        FollowingRequest request = new FollowingRequest(user5, 2, null, new AuthToken("bleeBlah"));
-        FollowingResponse response = serverFacadeSpy.getFollowees(request);
+        FollowingRequest request = new FollowingRequest(user5, 2, null);
+        FollowingResponse response = followingDAOSpy.getFollowees(request);
 
         // Verify first page
         Assertions.assertEquals(2, response.getFollowees().size());
@@ -86,8 +86,8 @@ class ServerFacadeTest {
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify second page
-        request = new FollowingRequest(user5, 2, response.getFollowees().get(1), new AuthToken("bleeBlah"));
-        response = serverFacadeSpy.getFollowees(request);
+        request = new FollowingRequest(user5, 2, response.getFollowees().get(1));
+        response = followingDAOSpy.getFollowees(request);
 
         Assertions.assertEquals(2, response.getFollowees().size());
         Assertions.assertTrue(response.getFollowees().contains(user4));
@@ -95,8 +95,8 @@ class ServerFacadeTest {
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify third page
-        request = new FollowingRequest(user5, 2, response.getFollowees().get(1), new AuthToken("bleeBlah"));
-        response = serverFacadeSpy.getFollowees(request);
+        request = new FollowingRequest(user5, 2, response.getFollowees().get(1));
+        response = followingDAOSpy.getFollowees(request);
 
         Assertions.assertEquals(2, response.getFollowees().size());
         Assertions.assertTrue(response.getFollowees().contains(user6));
@@ -108,10 +108,10 @@ class ServerFacadeTest {
     @Test
     void testGetFollowees_limitLessThanUsers_notEndsOnPageBoundary() {
         List<User> followees = Arrays.asList(user2, user3, user4, user5, user6, user7, user8);
-        Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
+        Mockito.when(followingDAOSpy.getDummyFollowees()).thenReturn(followees);
 
-        FollowingRequest request = new FollowingRequest(user6, 2, null, new AuthToken("bleeBlah"));
-        FollowingResponse response = serverFacadeSpy.getFollowees(request);
+        FollowingRequest request = new FollowingRequest(user6, 2, null);
+        FollowingResponse response = followingDAOSpy.getFollowees(request);
 
         // Verify first page
         Assertions.assertEquals(2, response.getFollowees().size());
@@ -120,8 +120,8 @@ class ServerFacadeTest {
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify second page
-        request = new FollowingRequest(user6, 2, response.getFollowees().get(1), new AuthToken("bleeBlah"));
-        response = serverFacadeSpy.getFollowees(request);
+        request = new FollowingRequest(user6, 2, response.getFollowees().get(1));
+        response = followingDAOSpy.getFollowees(request);
 
         Assertions.assertEquals(2, response.getFollowees().size());
         Assertions.assertTrue(response.getFollowees().contains(user4));
@@ -129,8 +129,8 @@ class ServerFacadeTest {
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify third page
-        request = new FollowingRequest(user6, 2, response.getFollowees().get(1), new AuthToken("bleeBlah"));
-        response = serverFacadeSpy.getFollowees(request);
+        request = new FollowingRequest(user6, 2, response.getFollowees().get(1));
+        response = followingDAOSpy.getFollowees(request);
 
         Assertions.assertEquals(2, response.getFollowees().size());
         Assertions.assertTrue(response.getFollowees().contains(user6));
@@ -138,8 +138,8 @@ class ServerFacadeTest {
         Assertions.assertTrue(response.getHasMorePages());
 
         // Get and verify fourth page
-        request = new FollowingRequest(user6, 2, response.getFollowees().get(1), new AuthToken("bleeBlah"));
-        response = serverFacadeSpy.getFollowees(request);
+        request = new FollowingRequest(user6, 2, response.getFollowees().get(1));
+        response = followingDAOSpy.getFollowees(request);
 
         Assertions.assertEquals(1, response.getFollowees().size());
         Assertions.assertTrue(response.getFollowees().contains(user8));

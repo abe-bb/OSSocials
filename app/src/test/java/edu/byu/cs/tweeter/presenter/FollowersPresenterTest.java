@@ -40,8 +40,8 @@ public class FollowersPresenterTest {
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
         // Setup request objects to use in the tests
-        validRequest = new FollowersRequest(currentUser, 3, null, new AuthToken());
-        invalidRequest = new FollowersRequest(null, 0, null, new AuthToken());
+        validRequest = new FollowersRequest(currentUser, 3, null, new AuthToken("bleeBlah"));
+        invalidRequest = new FollowersRequest(null, 0, null, new AuthToken("bleeBlah"));
 
         // Setup a mock FollowersService that will return known responses
         successResponse = new FollowersResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);

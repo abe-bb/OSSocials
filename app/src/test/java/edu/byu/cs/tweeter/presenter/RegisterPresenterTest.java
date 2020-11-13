@@ -27,7 +27,7 @@ public class RegisterPresenterTest {
         validRequest = new RegisterRequest("test", "user", "user1", "password");
         invalidRequest = new RegisterRequest("blah", "blah", "user1", "blah");
 
-        validResponse = new RegisterResponse(user1, new AuthToken());
+        validResponse = new RegisterResponse(user1, new AuthToken("bleeBlah"));
         invalidResponse = new RegisterResponse("alias already in use.");
 
         RegisterService mockRegisterService = Mockito.mock(RegisterService.class);

@@ -1,5 +1,6 @@
 package edu.byu.cs.tweeter.model.service.response;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
@@ -8,10 +9,18 @@ import edu.byu.cs.tweeter.model.domain.User;
 /**
  * A response for a {@link edu.byu.cs.tweeter.model.service.request.LoginRequest}.
  */
-public class LoginResponse extends Response {
+public class LoginResponse extends Response implements Serializable {
 
     private User user;
     private AuthToken authToken;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
+    }
 
     /**
      * Creates a response indicating that the corresponding request was unsuccessful.
@@ -65,5 +74,13 @@ public class LoginResponse extends Response {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), user, authToken);
+    }
+
+    @Override
+    public String toString() {
+        return "LoginResponse{" +
+                "user=" + user +
+                ", authToken=" + authToken +
+                '}';
     }
 }

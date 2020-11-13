@@ -34,6 +34,12 @@ import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
  * this class.
  */
 public class ServerFacade {
+    Server server;
+
+    public ServerFacade() {
+        server = new Server();
+    }
+
     // This is the hard coded data returned by the server Facade
     private static final String MALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
     private static final String FEMALE_IMAGE_URL = "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png";
@@ -106,15 +112,16 @@ public class ServerFacade {
      * @param request contains all information needed to perform a login.
      * @return the login response.
      */
-    public LoginResponse login(LoginRequest request) {
-        return new LoginResponse(user1, new AuthToken());
+    public LoginResponse login(LoginRequest request) throws TweeterRemoteException {
+        return server.login(request);
+//        return new LoginResponse(user1, new AuthToken("blah"));
     }
     /**
      * Registers a new user, and if successful, returns  the logged in user and an auth token.
      * Currently returns a hardcoded dummy user, without making any network requests.
      */
     public RegisterResponse register(RegisterRequest request) {
-        return new RegisterResponse(user1, new AuthToken());
+        return new RegisterResponse(user1, new AuthToken("blah"));
     }
 
     /**

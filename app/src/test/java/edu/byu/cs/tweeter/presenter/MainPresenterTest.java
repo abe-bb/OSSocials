@@ -56,22 +56,22 @@ public class MainPresenterTest {
 
         UserContextualDetails details = new UserContextualDetails(viewee, 100, 100, true, author);
 
-        validTwitRequest = new TwitRequest(twit, new AuthToken());
+        validTwitRequest = new TwitRequest(twit, new AuthToken("bleeBlah"));
         invalidTwitRequest = new TwitRequest(twit2, null);
         validTwitResponse = new TwitResponse(twit);
         invalidTwitResponse = new TwitResponse("Unauthorized");
 
-        validDetailRequest = new UserDetailRequest(viewee, author, new AuthToken());
+        validDetailRequest = new UserDetailRequest(viewee, author, new AuthToken("bleeBlah"));
         invalidDetailRequest = new UserDetailRequest(author, author, null);
         validDetailResponse = new UserDetailResponse(details);
         invalidDetailResponse = new UserDetailResponse("Unauthorized");
 
-        validFollowRequest = new FollowRequest(author, viewee, false, new AuthToken());
+        validFollowRequest = new FollowRequest(author, viewee, false, new AuthToken("bleeBlah"));
         invalidFollowRequest = new FollowRequest(author, author, false, null);
         validFollowResponse = new FollowResponse(true, false);
         invalidFollowResponse = new FollowResponse("Unauthorized", false);
 
-        validLogoutRequest = new LogoutRequest(author, new AuthToken());
+        validLogoutRequest = new LogoutRequest(author, new AuthToken("bleeBlah"));
         invalidLogoutRequest = new LogoutRequest(viewee, null);
         validLogoutResponse = new LogoutResponse(true);
         invalidLogoutResponse = new LogoutResponse("Unauthorized");

@@ -1,11 +1,12 @@
 package edu.byu.cs.tweeter.model.service.request;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Contains all the information needed to make a login request.
  */
-public class LoginRequest {
+public class LoginRequest implements Serializable {
 
     private String alias;
     private String password;
@@ -53,5 +54,21 @@ public class LoginRequest {
     @Override
     public int hashCode() {
         return Objects.hash(alias, password);
+    }
+
+    @Override
+    public String toString() {
+        return "LoginRequest{" +
+                "alias='" + alias + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

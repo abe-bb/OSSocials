@@ -10,6 +10,7 @@ import java.io.IOException;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 
@@ -24,12 +25,12 @@ public class LoginServiceTest {
     private LoginService loginServiceSpy;
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws TweeterRemoteException {
 
         validRequest = new LoginRequest("testyMcTestFace", "password");
         invalidRequest = new LoginRequest("invalidUsername", "blah");
 
-        validResponse = new LoginResponse(new User("testyMcTestFace"), new AuthToken());
+        validResponse = new LoginResponse(new User("testyMcTestFace"), new AuthToken("bleeBlah"));
         invalidResponse = new LoginResponse("An error has occurred");
 
         ServerFacade mockServerFacade = Mockito.mock(ServerFacade.class);
@@ -41,13 +42,13 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void testLogin_validRequest_validResponse() throws IOException {
+    public void testLogin_validRequest_validResponse() throws IOException, TweeterRemoteException {
         LoginResponse response = loginServiceSpy.login(validRequest);
         Assertions.assertEquals(validResponse, response);
     }
 
     @Test
-    public void testLogin_invalidRequest_correctResponse() throws IOException {
+    public void testLogin_invalidRequest_correctResponse() throws IOException, TweeterRemoteException {
         LoginResponse response = loginServiceSpy.login(invalidRequest);
         Assertions.assertEquals(invalidResponse, response);
     }

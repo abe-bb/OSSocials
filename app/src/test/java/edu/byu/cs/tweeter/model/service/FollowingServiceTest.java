@@ -22,7 +22,7 @@ public class FollowingServiceTest {
     private FollowingResponse successResponse;
     private FollowingResponse failureResponse;
 
-    private FollowingServiceInterface followingServiceSpy;
+    private FollowingService followingServiceSpy;
 
     /**
      * Create a FollowingService spy that uses a mock ServerFacade to return known responses to
@@ -40,8 +40,8 @@ public class FollowingServiceTest {
                 "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/daisy_duck.png");
 
         // Setup request objects to use in the tests
-        validRequest = new FollowingRequest(currentUser, 3, null, new AuthToken());
-        invalidRequest = new FollowingRequest(null, 0, null, new AuthToken());
+        validRequest = new FollowingRequest(currentUser, 3, null, new AuthToken("bleeBlah"));
+        invalidRequest = new FollowingRequest(null, 0, null, new AuthToken("bleeBlah"));
 
         // Setup a mock ServerFacade that will return known responses
         successResponse = new FollowingResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
@@ -52,7 +52,7 @@ public class FollowingServiceTest {
         Mockito.when(mockServerFacade.getFollowees(invalidRequest)).thenReturn(failureResponse);
 
         // Create a FollowingService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new FollowingServiceInterface());
+        followingServiceSpy = Mockito.spy(new FollowingService());
         Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 
