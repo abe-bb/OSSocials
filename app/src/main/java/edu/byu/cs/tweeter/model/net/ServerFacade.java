@@ -135,35 +135,36 @@ public class ServerFacade {
      *                other information required to satisfy the request.
      * @return the following response.
      */
-    public FollowingResponse getFollowees(FollowingRequest request) {
+    public FollowingResponse getFollowees(FollowingRequest request) throws TweeterRemoteException {
+        return server.getFollowing(request);
 
         // Used in place of assert statements because Android does not support them
-        if(BuildConfig.DEBUG) {
-            if(request.getLimit() < 0) {
-                throw new AssertionError();
-            }
-
-            if(request.getFollower() == null) {
-                throw new AssertionError();
-            }
-        }
-
-        List<User> allFollowees = getDummyFollowees();
-        List<User> responseFollowees = new ArrayList<>(request.getLimit());
-
-        boolean hasMorePages = false;
-
-        if(request.getLimit() > 0) {
-            int followeesIndex = getFolloweesStartingIndex(request.getLastFollowee(), allFollowees);
-
-            for(int limitCounter = 0; followeesIndex < allFollowees.size() && limitCounter < request.getLimit(); followeesIndex++, limitCounter++) {
-                responseFollowees.add(allFollowees.get(followeesIndex));
-            }
-
-            hasMorePages = followeesIndex < allFollowees.size();
-        }
-
-        return new FollowingResponse(responseFollowees, hasMorePages);
+//        if(BuildConfig.DEBUG) {
+//            if(request.getLimit() < 0) {
+//                throw new AssertionError();
+//            }
+//
+//            if(request.getFollower() == null) {
+//                throw new AssertionError();
+//            }
+//        }
+//
+//        List<User> allFollowees = getDummyFollowees();
+//        List<User> responseFollowees = new ArrayList<>(request.getLimit());
+//
+//        boolean hasMorePages = false;
+//
+//        if(request.getLimit() > 0) {
+//            int followeesIndex = getFolloweesStartingIndex(request.getLastFollowee(), allFollowees);
+//
+//            for(int limitCounter = 0; followeesIndex < allFollowees.size() && limitCounter < request.getLimit(); followeesIndex++, limitCounter++) {
+//                responseFollowees.add(allFollowees.get(followeesIndex));
+//            }
+//
+//            hasMorePages = followeesIndex < allFollowees.size();
+//        }
+//
+//        return new FollowingResponse(responseFollowees, hasMorePages);
     }
 
     /**

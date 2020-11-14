@@ -3,7 +3,7 @@ package edu.byu.cs.tweeter.presenter;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
-import edu.byu.cs.tweeter.model.service.FollowingService;
+import edu.byu.cs.tweeter.model.service.FollowingServiceProxy;
 import edu.byu.cs.tweeter.model.service.FollowingServiceInterface;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
@@ -52,6 +52,6 @@ public class FollowingPresenter {
      * @return the instance.
      */
     FollowingServiceInterface getFollowingService() {
-        return new FollowingService();
+        return new FollowingServiceProxy();
     }
 }

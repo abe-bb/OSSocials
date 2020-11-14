@@ -5,15 +5,14 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
+import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
@@ -37,6 +36,16 @@ public class Server {
         String stringResponse = makeAPICall(urlString, "POST", request);
         Gson gson = new Gson();
         RegisterResponse response = gson.fromJson(stringResponse, RegisterResponse.class);
+        return response;
+    }
+
+    public FollowingResponse getFollowing(FollowingRequest request) throws TweeterRemoteException {
+        String urlString = baseAPI + "/getfollowing";
+
+        String stringResponse = makeAPICall(urlString, "POST", request);
+
+        Gson gson = new Gson();
+        FollowingResponse response = gson.fromJson(stringResponse, FollowingResponse.class);
         return response;
     }
 
