@@ -120,8 +120,9 @@ public class ServerFacade {
      * Registers a new user, and if successful, returns  the logged in user and an auth token.
      * Currently returns a hardcoded dummy user, without making any network requests.
      */
-    public RegisterResponse register(RegisterRequest request) {
-        return new RegisterResponse(user1, new AuthToken("blah"));
+    public RegisterResponse register(RegisterRequest request) throws TweeterRemoteException {
+        return server.register(request);
+//        return new RegisterResponse(user1, new AuthToken("blah"));
     }
 
     /**

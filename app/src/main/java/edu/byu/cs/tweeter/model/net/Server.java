@@ -13,7 +13,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
 public class Server {
     private final String baseAPI = "https://x5404fmdia.execute-api.us-west-2.amazonaws.com/Beta";
@@ -27,6 +29,15 @@ public class Server {
         LoginResponse response = gson.fromJson(stringResponse, LoginResponse.class);
         return response;
 
+    }
+
+    public RegisterResponse register(RegisterRequest request) throws TweeterRemoteException {
+        String urlString = baseAPI + "/register";
+
+        String stringResponse = makeAPICall(urlString, "POST", request);
+        Gson gson = new Gson();
+        RegisterResponse response = gson.fromJson(stringResponse, RegisterResponse.class);
+        return response;
     }
 
     private String makeAPICall(String apiURL, String method, Object request) throws TweeterRemoteException {

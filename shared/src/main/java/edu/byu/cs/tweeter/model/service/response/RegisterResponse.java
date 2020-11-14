@@ -19,10 +19,6 @@ public class RegisterResponse extends Response {
         return user;
     }
 
-    public AuthToken getAuthToken() {
-        return token;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,5 +38,17 @@ public class RegisterResponse extends Response {
         super(false,  message);
         this.user = null;
         this.token = null;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public AuthToken getToken() {
+        return token;
+    }
+
+    public void setToken(AuthToken token) {
+        this.token = token;
     }
 }
