@@ -10,7 +10,7 @@ import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 /**
  * business logic for getting followers
  */
-public class FollowersServiceProxy extends Service {
+public class FollowersServiceProxy extends ServiceProxy {
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in

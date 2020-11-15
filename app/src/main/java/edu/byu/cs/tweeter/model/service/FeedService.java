@@ -7,7 +7,7 @@ import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.service.request.FeedRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
 
-public class FeedService extends Service {
+public class FeedService extends ServiceProxy {
 
     public FeedResponse getFeedPage(FeedRequest request) throws IOException {
         ServerFacade server = getServerFacade();

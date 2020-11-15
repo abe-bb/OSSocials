@@ -12,7 +12,7 @@ import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
-public class MainService extends Service {
+public class MainService extends ServiceProxy {
 
     public TwitResponse sendTwit(TwitRequest request) {
         ServerFacade server = getServerFacade();

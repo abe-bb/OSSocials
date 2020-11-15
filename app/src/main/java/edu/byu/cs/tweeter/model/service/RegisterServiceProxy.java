@@ -7,7 +7,7 @@ import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
-public class RegisterServiceProxy extends Service implements RegisterServiceInterface {
+public class RegisterServiceProxy extends ServiceProxy implements RegisterServiceInterface {
     public RegisterResponse register(RegisterRequest request) throws IOException, TweeterRemoteException {
         ServerFacade serverFacade = getServerFacade();
 
