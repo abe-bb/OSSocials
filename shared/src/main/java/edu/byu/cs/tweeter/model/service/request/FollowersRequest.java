@@ -9,12 +9,32 @@ import edu.byu.cs.tweeter.model.domain.User;
  * All required information to get the next page of Followers for a given followee
  */
 public class FollowersRequest {
-    private final User followee;
-    private final int limit;
-    private final User lastFollower;
-    private final AuthToken token;
+    private User followee;
+    private int limit;
+    private User lastFollower;
+    private AuthToken token;
 
+    public FollowersRequest() {}
 
+    public void setFollowee(User followee) {
+        this.followee = followee;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public void setLastFollower(User lastFollower) {
+        this.lastFollower = lastFollower;
+    }
+
+    public AuthToken getToken() {
+        return token;
+    }
+
+    public void setToken(AuthToken token) {
+        this.token = token;
+    }
 
     /**
      * @param followee the {@link User} whose followers are being requested

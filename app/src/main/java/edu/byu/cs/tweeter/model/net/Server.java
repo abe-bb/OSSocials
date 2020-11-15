@@ -9,9 +9,11 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
@@ -46,6 +48,16 @@ public class Server {
 
         Gson gson = new Gson();
         FollowingResponse response = gson.fromJson(stringResponse, FollowingResponse.class);
+        return response;
+    }
+
+    public FollowersResponse getFollowers(FollowersRequest request) throws TweeterRemoteException {
+        String urlString = baseAPI + "/getfollowers";
+
+        String stringResponse = makeAPICall(urlString, "POST", request);
+
+        Gson gson = new Gson();
+        FollowersResponse response = gson.fromJson(stringResponse, FollowersResponse.class);
         return response;
     }
 

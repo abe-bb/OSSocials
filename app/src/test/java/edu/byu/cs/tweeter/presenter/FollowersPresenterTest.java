@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
-import edu.byu.cs.tweeter.model.service.FollowersService;
+import edu.byu.cs.tweeter.model.service.FollowersServiceProxy;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 
@@ -45,15 +45,15 @@ public class FollowersPresenterTest {
 
         // Setup a mock FollowersService that will return known responses
         successResponse = new FollowersResponse(Arrays.asList(resultUser1, resultUser2, resultUser3), false);
-        FollowersService mockFollowersService = Mockito.mock(FollowersService.class);
-        Mockito.when(mockFollowersService.getFollowers(validRequest)).thenReturn(successResponse);
+        FollowersServiceProxy mockFollowersServiceProxy = Mockito.mock(FollowersServiceProxy.class);
+        Mockito.when(mockFollowersServiceProxy.getFollowers(validRequest)).thenReturn(successResponse);
 
         failureResponse = new FollowersResponse("An exception occurred");
-        Mockito.when(mockFollowersService.getFollowers(invalidRequest)).thenReturn(failureResponse);
+        Mockito.when(mockFollowersServiceProxy.getFollowers(invalidRequest)).thenReturn(failureResponse);
 
         FollowersPresenter.View view = new FollowersPresenter.View() {};
         FollowersPresenterSpy = Mockito.spy(new FollowersPresenter(view));
-        Mockito.when(FollowersPresenterSpy.getFollowersService()).thenReturn(mockFollowersService);
+        Mockito.when(FollowersPresenterSpy.getFollowersService()).thenReturn(mockFollowersServiceProxy);
     }
 
     @Test

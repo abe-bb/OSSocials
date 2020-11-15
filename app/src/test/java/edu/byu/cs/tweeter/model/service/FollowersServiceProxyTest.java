@@ -15,7 +15,7 @@ import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 
-public class FollowersServiceTest {
+public class FollowersServiceProxyTest {
 
     private FollowersRequest validRequest;
     private FollowersRequest invalidRequest;
@@ -23,7 +23,7 @@ public class FollowersServiceTest {
     private FollowersResponse successResponse;
     private FollowersResponse failureResponse;
 
-    private FollowersService followingServiceSpy;
+    private FollowersServiceProxy followingServiceSpy;
 
     /**
      * Create a FollowingService spy that uses a mock ServerFacade to return known responses to
@@ -53,7 +53,7 @@ public class FollowersServiceTest {
         Mockito.when(mockServerFacade.getFollowers(invalidRequest)).thenReturn(failureResponse);
 
         // Create a FollowingService instance and wrap it with a spy that will use the mock service
-        followingServiceSpy = Mockito.spy(new FollowersService());
+        followingServiceSpy = Mockito.spy(new FollowersServiceProxy());
         Mockito.when(followingServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
     }
 

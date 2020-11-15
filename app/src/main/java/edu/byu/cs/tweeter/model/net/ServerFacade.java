@@ -208,36 +208,37 @@ public class ServerFacade {
         }
     }
 
-    public FollowersResponse getFollowers(FollowersRequest request) {
-        pause(1000);
-
-        // Used in place of assert statements because Android does not support them
-        if(BuildConfig.DEBUG) {
-            if(request.getLimit() < 0) {
-                throw new AssertionError();
-            }
-
-            if(request.getFollowee() == null) {
-                throw new AssertionError();
-            }
-        }
-
-        List<User> allFollowers = getDummyFollowers();
-        List<User> responseFollowers = new ArrayList<>(request.getLimit());
-
-        boolean hasMorePages = false;
-
-        if(request.getLimit() > 0) {
-            int followersIndex = getFollowersStartingIndex(request.getLastFollower(), allFollowers);
-
-            for(int limitCounter = 0; followersIndex < allFollowers.size() && limitCounter < request.getLimit(); followersIndex++, limitCounter++) {
-                responseFollowers.add(allFollowers.get(followersIndex));
-            }
-
-            hasMorePages = followersIndex < allFollowers.size();
-        }
-
-        return new FollowersResponse(responseFollowers, hasMorePages);
+    public FollowersResponse getFollowers(FollowersRequest request) throws TweeterRemoteException {
+        return server.getFollowers(request);
+//        pause(1000);
+//
+//        // Used in place of assert statements because Android does not support them
+//        if(BuildConfig.DEBUG) {
+//            if(request.getLimit() < 0) {
+//                throw new AssertionError();
+//            }
+//
+//            if(request.getFollowee() == null) {
+//                throw new AssertionError();
+//            }
+//        }
+//
+//        List<User> allFollowers = getDummyFollowers();
+//        List<User> responseFollowers = new ArrayList<>(request.getLimit());
+//
+//        boolean hasMorePages = false;
+//
+//        if(request.getLimit() > 0) {
+//            int followersIndex = getFollowersStartingIndex(request.getLastFollower(), allFollowers);
+//
+//            for(int limitCounter = 0; followersIndex < allFollowers.size() && limitCounter < request.getLimit(); followersIndex++, limitCounter++) {
+//                responseFollowers.add(allFollowers.get(followersIndex));
+//            }
+//
+//            hasMorePages = followersIndex < allFollowers.size();
+//        }
+//
+//        return new FollowersResponse(responseFollowers, hasMorePages);
     }
 
 

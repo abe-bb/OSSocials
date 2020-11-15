@@ -3,13 +3,14 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 
 /**
  * business logic for getting followers
  */
-public class FollowersService extends Service {
+public class FollowersServiceProxy extends Service {
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -20,7 +21,7 @@ public class FollowersService extends Service {
      * @param request contains the data required to fulfill the request.
      * @return the followees.
      */
-    public FollowersResponse getFollowers(FollowersRequest request) throws IOException {
+    public FollowersResponse getFollowers(FollowersRequest request) throws IOException, TweeterRemoteException {
         FollowersResponse response = getServerFacade().getFollowers(request);
 
         if (response.isSuccess()) {
