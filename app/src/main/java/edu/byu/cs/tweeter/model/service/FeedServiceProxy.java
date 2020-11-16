@@ -13,6 +13,8 @@ public class FeedServiceProxy extends ServiceProxy {
     public FeedResponse getFeedPage(FeedRequest request) throws IOException, TweeterRemoteException {
         ServerFacade server = getServerFacade();
 
+        request.setUser(stripImages(request.getUser()));
+
         FeedResponse response = server.getFeed(request);
         if (response.isSuccess()) {
             for (Status status : response.getStati()) {

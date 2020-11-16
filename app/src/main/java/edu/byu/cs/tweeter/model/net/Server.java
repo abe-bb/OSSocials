@@ -13,11 +13,13 @@ import edu.byu.cs.tweeter.model.service.request.FeedRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
+import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
+import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
 
 public class Server {
@@ -71,6 +73,17 @@ public class Server {
         Gson gson = new Gson();
         FeedResponse response = gson.fromJson(stringResponse, FeedResponse.class);
         return response;
+    }
+
+    public LogoutResponse logout(LogoutRequest request) throws TweeterRemoteException {
+        String urlString = baseAPI + "/logout";
+
+        String stringResponse = makeAPICall(urlString, "POST", request);
+
+        Gson gson = new Gson();
+        LogoutResponse response = gson.fromJson(stringResponse, LogoutResponse.class);
+        return response;
+
     }
 
     private String makeAPICall(String apiURL, String method, Object request) throws TweeterRemoteException {

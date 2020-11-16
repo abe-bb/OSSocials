@@ -24,7 +24,7 @@ import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
 import static org.mockito.Mockito.when;
 
-public class MainServiceTest {
+public class MainServicesProxyTest {
     private TwitRequest validTwitRequest;
     private TwitRequest invalidTwitRequest;
     private TwitResponse validTwitResponse;
@@ -45,7 +45,7 @@ public class MainServiceTest {
     private LogoutResponse validLogoutResponse;
     private LogoutResponse invalidLogoutResponse;
 
-    private MainService mainServiceSpy;
+    private MainServicesProxy mainServicesProxySpy;
 
     @BeforeEach
     public void setup() {
@@ -89,20 +89,20 @@ public class MainServiceTest {
         when(mockServerFacade.logout(validLogoutRequest)).thenReturn(validLogoutResponse);
         when(mockServerFacade.logout(invalidLogoutRequest)).thenReturn(invalidLogoutResponse);
 
-        mainServiceSpy = Mockito.spy(new MainService());
-        when(mainServiceSpy.getServerFacade()).thenReturn(mockServerFacade);
+        mainServicesProxySpy = Mockito.spy(new MainServicesProxy());
+        when(mainServicesProxySpy.getServerFacade()).thenReturn(mockServerFacade);
 
     }
 
     @Test
     public void testSendTwit_validRequest_validResponse() {
-        TwitResponse response = mainServiceSpy.sendTwit(validTwitRequest);
+        TwitResponse response = mainServicesProxySpy.sendTwit(validTwitRequest);
         Assertions.assertEquals(validTwitResponse, response);
     }
 
     @Test
     public void testSendTwit_invalidRequest_correctResponse() {
-        TwitResponse response = mainServiceSpy.sendTwit(invalidTwitRequest);
+        TwitResponse response = mainServicesProxySpy.sendTwit(invalidTwitRequest);
         System.out.println(response.equals(invalidTwitResponse));
         Assertions.assertEquals(invalidTwitResponse, response);
 
@@ -110,37 +110,37 @@ public class MainServiceTest {
 
     @Test
     public void testGetUserDetails_validRequest_validResponse() throws IOException {
-        UserDetailResponse response = mainServiceSpy.getUserDetails(validDetailRequest);
+        UserDetailResponse response = mainServicesProxySpy.getUserDetails(validDetailRequest);
         Assertions.assertEquals(validDetailResponse, response);
     }
 
     @Test
     public void testGetUserDetails_invalidRequest_correctResponse() throws IOException {
-        UserDetailResponse response = mainServiceSpy.getUserDetails(invalidDetailRequest);
+        UserDetailResponse response = mainServicesProxySpy.getUserDetails(invalidDetailRequest);
         Assertions.assertEquals(invalidDetailResponse, response);
     }
 
     @Test
     public void testFollow_validRequest_validResponse() {
-        FollowResponse response = mainServiceSpy.follow(validFollowRequest);
+        FollowResponse response = mainServicesProxySpy.follow(validFollowRequest);
         Assertions.assertEquals(validFollowResponse, response);
     }
 
     @Test
     public void testFollow_invalidRequest_correctResponse() {
-        FollowResponse response = mainServiceSpy.follow(invalidFollowRequest);
+        FollowResponse response = mainServicesProxySpy.follow(invalidFollowRequest);
         Assertions.assertEquals(invalidFollowResponse, response);
     }
 
     @Test
     public void testLogout_validRequest_validResponse() {
-        LogoutResponse response = mainServiceSpy.logout(validLogoutRequest);
+        LogoutResponse response = mainServicesProxySpy.logout(validLogoutRequest);
         Assertions.assertEquals(validLogoutResponse, response);
     }
 
     @Test
     public void testLogout_invalidRequest_correctResponse() {
-        LogoutResponse response = mainServiceSpy.logout(invalidLogoutRequest);
+        LogoutResponse response = mainServicesProxySpy.logout(invalidLogoutRequest);
         Assertions.assertEquals(invalidLogoutResponse, response);
     }
 }

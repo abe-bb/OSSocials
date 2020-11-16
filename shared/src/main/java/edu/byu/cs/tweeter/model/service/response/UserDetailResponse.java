@@ -5,7 +5,11 @@ import java.util.Objects;
 import edu.byu.cs.tweeter.model.domain.UserContextualDetails;
 
 public class UserDetailResponse extends Response {
-    UserContextualDetails details;
+    private UserContextualDetails details;
+
+    public void setDetails(UserContextualDetails details) {
+        this.details = details;
+    }
 
     public UserDetailResponse(UserContextualDetails details) {
         super(true);

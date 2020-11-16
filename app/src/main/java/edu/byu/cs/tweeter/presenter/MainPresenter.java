@@ -2,7 +2,8 @@ package edu.byu.cs.tweeter.presenter;
 
 import java.io.IOException;
 
-import edu.byu.cs.tweeter.model.service.MainService;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
+import edu.byu.cs.tweeter.model.service.MainServicesProxy;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.TwitRequest;
@@ -13,12 +14,12 @@ import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
 public class MainPresenter {
-    private MainService service;
+    private MainServicesProxy service;
     private View view;
 
     public MainPresenter(View view) {
         this.view = view;
-        service = new MainService();
+        service = new MainServicesProxy();
     }
 
 
@@ -26,28 +27,28 @@ public class MainPresenter {
     }
 
     public TwitResponse sendTwit(TwitRequest request) {
-        MainService service = getMainService();
+        MainServicesProxy service = getMainService();
         return service.sendTwit(request);
     }
 
     public UserDetailResponse getUserDetails(UserDetailRequest request) throws IOException {
-        MainService service = getMainService();
+        MainServicesProxy service = getMainService();
         return service.getUserDetails(request);
     }
 
     public FollowResponse follow(FollowRequest request) {
-        MainService service = getMainService();
+        MainServicesProxy service = getMainService();
         return service.follow(request);
     }
 
-    public LogoutResponse logout(LogoutRequest request) {
-        MainService service = getMainService();
+    public LogoutResponse logout(LogoutRequest request) throws TweeterRemoteException {
+        MainServicesProxy service = getMainService();
         return service.logout(request);
     }
 
-    MainService getMainService() {
+    MainServicesProxy getMainService() {
         if (service == null) {
-            service = new MainService();
+            service = new MainServicesProxy();
         }
         return service;
     }

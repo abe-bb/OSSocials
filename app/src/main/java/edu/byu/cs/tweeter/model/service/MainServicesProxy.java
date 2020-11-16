@@ -3,6 +3,7 @@ package edu.byu.cs.tweeter.model.service;
 import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.TwitRequest;
@@ -12,7 +13,7 @@ import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
-public class MainService extends ServiceProxy {
+public class MainServicesProxy extends ServiceProxy implements TwitServiceInterface, UserDetailServiceInterface, LogoutServiceInterface {
 
     public TwitResponse sendTwit(TwitRequest request) {
         ServerFacade server = getServerFacade();
@@ -33,7 +34,9 @@ public class MainService extends ServiceProxy {
         return server.follow(request);
     }
 
-    public LogoutResponse logout(LogoutRequest request) {
+    public LogoutResponse logout(LogoutRequest request) throws TweeterRemoteException {
+        request.setLoggedInUser(stripImages(request.getLoggedInUser()));
+
         ServerFacade server = getServerFacade();
         LogoutResponse response = server.logout(request);
         return response;

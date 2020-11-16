@@ -137,34 +137,6 @@ public class ServerFacade {
      */
     public FollowingResponse getFollowees(FollowingRequest request) throws TweeterRemoteException {
         return server.getFollowing(request);
-
-        // Used in place of assert statements because Android does not support them
-//        if(BuildConfig.DEBUG) {
-//            if(request.getLimit() < 0) {
-//                throw new AssertionError();
-//            }
-//
-//            if(request.getFollower() == null) {
-//                throw new AssertionError();
-//            }
-//        }
-//
-//        List<User> allFollowees = getDummyFollowees();
-//        List<User> responseFollowees = new ArrayList<>(request.getLimit());
-//
-//        boolean hasMorePages = false;
-//
-//        if(request.getLimit() > 0) {
-//            int followeesIndex = getFolloweesStartingIndex(request.getLastFollowee(), allFollowees);
-//
-//            for(int limitCounter = 0; followeesIndex < allFollowees.size() && limitCounter < request.getLimit(); followeesIndex++, limitCounter++) {
-//                responseFollowees.add(allFollowees.get(followeesIndex));
-//            }
-//
-//            hasMorePages = followeesIndex < allFollowees.size();
-//        }
-//
-//        return new FollowingResponse(responseFollowees, hasMorePages);
     }
 
     /**
@@ -210,35 +182,6 @@ public class ServerFacade {
 
     public FollowersResponse getFollowers(FollowersRequest request) throws TweeterRemoteException {
         return server.getFollowers(request);
-//        pause(1000);
-//
-//        // Used in place of assert statements because Android does not support them
-//        if(BuildConfig.DEBUG) {
-//            if(request.getLimit() < 0) {
-//                throw new AssertionError();
-//            }
-//
-//            if(request.getFollowee() == null) {
-//                throw new AssertionError();
-//            }
-//        }
-//
-//        List<User> allFollowers = getDummyFollowers();
-//        List<User> responseFollowers = new ArrayList<>(request.getLimit());
-//
-//        boolean hasMorePages = false;
-//
-//        if(request.getLimit() > 0) {
-//            int followersIndex = getFollowersStartingIndex(request.getLastFollower(), allFollowers);
-//
-//            for(int limitCounter = 0; followersIndex < allFollowers.size() && limitCounter < request.getLimit(); followersIndex++, limitCounter++) {
-//                responseFollowers.add(allFollowers.get(followersIndex));
-//            }
-//
-//            hasMorePages = followersIndex < allFollowers.size();
-//        }
-//
-//        return new FollowersResponse(responseFollowers, hasMorePages);
     }
 
 
@@ -274,39 +217,6 @@ public class ServerFacade {
 
     public FeedResponse getFeed(FeedRequest request) throws TweeterRemoteException {
         return server.getFeed(request);
-//        pause(1000);
-//
-//        // Used in place of assert statements because Android does not support them
-//        if(BuildConfig.DEBUG) {
-//            if(request.getLimit() < 0) {
-//                throw new AssertionError();
-//            }
-//
-//            if(request.getUser() == null) {
-//                throw new AssertionError();
-//            }
-//        }
-//
-//        List<Status> allStati;
-//        if (request.isStory())
-//            allStati = getDummyStory();
-//        else
-//            allStati = getDummyFeed();
-//        List<Status> responseStati = new ArrayList<>(request.getLimit());
-//
-//        boolean hasMorePages = false;
-//
-//        if(request.getLimit() > 0) {
-//            int statiIndex = getFeedStartingIndex(request.getLastStatus(), allStati);
-//
-//            for(int limitCounter = 0; statiIndex < allStati.size() && limitCounter < request.getLimit(); statiIndex++, limitCounter++) {
-//                responseStati.add(allStati.get(statiIndex));
-//            }
-//
-//            hasMorePages = statiIndex < allStati.size();
-//        }
-//
-//        return new FeedResponse(responseStati, hasMorePages);
     }
 
     private int getFeedStartingIndex(Status lastStatus, List<Status> allStati) {
@@ -376,7 +286,7 @@ public class ServerFacade {
         return new FollowResponse(true, request.isUnfollow());
     }
 
-    public LogoutResponse logout(LogoutRequest request) {
-        return new LogoutResponse(true);
+    public LogoutResponse logout(LogoutRequest request) throws TweeterRemoteException {
+        return server.logout(request);
     }
 }

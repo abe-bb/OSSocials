@@ -12,7 +12,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.domain.UserContextualDetails;
-import edu.byu.cs.tweeter.model.service.MainService;
+import edu.byu.cs.tweeter.model.service.MainServicesProxy;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.TwitRequest;
@@ -76,22 +76,22 @@ public class MainPresenterTest {
         validLogoutResponse = new LogoutResponse(true);
         invalidLogoutResponse = new LogoutResponse("Unauthorized");
 
-        MainService mockMainService = Mockito.mock(MainService.class);
-        when(mockMainService.sendTwit(invalidTwitRequest)).thenReturn(invalidTwitResponse);
-        when(mockMainService.sendTwit(validTwitRequest)).thenReturn(validTwitResponse);
+        MainServicesProxy mockMainServicesProxy = Mockito.mock(MainServicesProxy.class);
+        when(mockMainServicesProxy.sendTwit(invalidTwitRequest)).thenReturn(invalidTwitResponse);
+        when(mockMainServicesProxy.sendTwit(validTwitRequest)).thenReturn(validTwitResponse);
 
-        when(mockMainService.getUserDetails(validDetailRequest)).thenReturn(validDetailResponse);
-        when(mockMainService.getUserDetails(invalidDetailRequest)).thenReturn(invalidDetailResponse);
+        when(mockMainServicesProxy.getUserDetails(validDetailRequest)).thenReturn(validDetailResponse);
+        when(mockMainServicesProxy.getUserDetails(invalidDetailRequest)).thenReturn(invalidDetailResponse);
 //
-        when(mockMainService.follow(validFollowRequest)).thenReturn(validFollowResponse);
-        when(mockMainService.follow(invalidFollowRequest)).thenReturn(invalidFollowResponse);
+        when(mockMainServicesProxy.follow(validFollowRequest)).thenReturn(validFollowResponse);
+        when(mockMainServicesProxy.follow(invalidFollowRequest)).thenReturn(invalidFollowResponse);
 //
-        when(mockMainService.logout(validLogoutRequest)).thenReturn(validLogoutResponse);
-        when(mockMainService.logout(invalidLogoutRequest)).thenReturn(invalidLogoutResponse);
+        when(mockMainServicesProxy.logout(validLogoutRequest)).thenReturn(validLogoutResponse);
+        when(mockMainServicesProxy.logout(invalidLogoutRequest)).thenReturn(invalidLogoutResponse);
 
         MainPresenter.View view = new MainPresenter.View() {};
         mainPresenterSpy = Mockito.spy(new MainPresenter(view));
-        when(mainPresenterSpy.getMainService()).thenReturn(mockMainService);
+        when(mainPresenterSpy.getMainService()).thenReturn(mockMainServicesProxy);
 
     }
 

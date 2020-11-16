@@ -6,8 +6,27 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
 public class UserDetailRequest {
-    private final User viewee;
-    private final User viewer;
+    private User viewee;
+    private User viewer;
+    private AuthToken token;
+
+    public UserDetailRequest() {}
+
+    public void setViewee(User viewee) {
+        this.viewee = viewee;
+    }
+
+    public void setViewer(User viewer) {
+        this.viewer = viewer;
+    }
+
+    public AuthToken getToken() {
+        return token;
+    }
+
+    public void setToken(AuthToken token) {
+        this.token = token;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -23,7 +42,7 @@ public class UserDetailRequest {
         return Objects.hash(viewee, viewer);
     }
 
-    private final AuthToken token;
+
 
     public UserDetailRequest(User viewee, User viewer, AuthToken token) {
         this.viewee = viewee;

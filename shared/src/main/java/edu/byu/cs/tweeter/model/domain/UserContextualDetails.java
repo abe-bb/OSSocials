@@ -10,6 +10,28 @@ public class UserContextualDetails {
 
     User viewer;
 
+    public UserContextualDetails() {}
+
+    public void setViewee(User viewee) {
+        this.viewee = viewee;
+    }
+
+    public void setNumFollowers(int numFollowers) {
+        this.numFollowers = numFollowers;
+    }
+
+    public void setNumFollowing(int numFollowing) {
+        this.numFollowing = numFollowing;
+    }
+
+    public void setFollowing(boolean following) {
+        isFollowing = following;
+    }
+
+    public void setViewer(User viewer) {
+        this.viewer = viewer;
+    }
+
     public UserContextualDetails(User viewee, int numFollowers, int numFollowing, boolean isFollowing, User viewer) {
         this.viewee = viewee;
         this.numFollowers = numFollowers;
