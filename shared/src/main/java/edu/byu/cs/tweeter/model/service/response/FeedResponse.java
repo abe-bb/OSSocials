@@ -8,6 +8,10 @@ import edu.byu.cs.tweeter.model.domain.Status;
 public class FeedResponse extends PagedResponse {
     List<Status> stati;
 
+
+
+
+
     public FeedResponse(String message) {
         super(false, message, false);
         this.stati = null;

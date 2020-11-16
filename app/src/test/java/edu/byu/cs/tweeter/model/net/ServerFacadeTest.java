@@ -33,7 +33,7 @@ class ServerFacadeTest {
     }
 
     @Test
-    void testGetFollowees_noFolloweesForUser() {
+    void testGetFollowees_noFolloweesForUser() throws TweeterRemoteException {
         List<User> followees = Collections.emptyList();
         Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
 
@@ -45,7 +45,7 @@ class ServerFacadeTest {
     }
 
     @Test
-    void testGetFollowees_oneFollowerForUser_limitGreaterThanUsers() {
+    void testGetFollowees_oneFollowerForUser_limitGreaterThanUsers() throws TweeterRemoteException {
         List<User> followees = Collections.singletonList(user2);
         Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
 
@@ -58,7 +58,7 @@ class ServerFacadeTest {
     }
 
     @Test
-    void testGetFollowees_twoFollowersForUser_limitEqualsUsers() {
+    void testGetFollowees_twoFollowersForUser_limitEqualsUsers() throws TweeterRemoteException {
         List<User> followees = Arrays.asList(user2, user3);
         Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
 
@@ -72,7 +72,7 @@ class ServerFacadeTest {
     }
 
     @Test
-    void testGetFollowees_limitLessThanUsers_endsOnPageBoundary() {
+    void testGetFollowees_limitLessThanUsers_endsOnPageBoundary() throws TweeterRemoteException {
         List<User> followees = Arrays.asList(user2, user3, user4, user5, user6, user7);
         Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
 
@@ -106,7 +106,7 @@ class ServerFacadeTest {
 
 
     @Test
-    void testGetFollowees_limitLessThanUsers_notEndsOnPageBoundary() {
+    void testGetFollowees_limitLessThanUsers_notEndsOnPageBoundary() throws TweeterRemoteException {
         List<User> followees = Arrays.asList(user2, user3, user4, user5, user6, user7, user8);
         Mockito.when(serverFacadeSpy.getDummyFollowees()).thenReturn(followees);
 

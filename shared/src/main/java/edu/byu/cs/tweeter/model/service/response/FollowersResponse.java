@@ -5,7 +5,8 @@ import java.util.Objects;
 
 import edu.byu.cs.tweeter.model.domain.User;
 
-public class FollowersResponse extends PagedResponse {
+public class
+FollowersResponse extends PagedResponse {
     private List<User> followers;
     /**
      * Creates a response indicating that the corresponding request was unsuccessful. Sets the

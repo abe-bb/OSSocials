@@ -23,6 +23,9 @@ public class FollowingServiceProxy extends ServiceProxy implements FollowingServ
      */
     public FollowingResponse getFollowees(FollowingRequest request) throws IOException, TweeterRemoteException {
 
+        request.setFollower(stripImages(request.getFollower()));
+        request.setLastFollowee(stripImages(request.getLastFollowee()));
+
         FollowingResponse response = getServerFacade().getFollowees(request);
 
         if(response.isSuccess()) {

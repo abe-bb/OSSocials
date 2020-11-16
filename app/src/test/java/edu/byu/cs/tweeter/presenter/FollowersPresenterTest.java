@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.FollowersServiceProxy;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
@@ -29,7 +30,7 @@ public class FollowersPresenterTest {
      * requests.
      */
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
 
         User resultUser1 = new User("FirstName1", "LastName1",
@@ -57,13 +58,13 @@ public class FollowersPresenterTest {
     }
 
     @Test
-    public void testGetFollowees_validRequest_correctResponse() throws IOException {
+    public void testGetFollowees_validRequest_correctResponse() throws IOException, TweeterRemoteException {
         FollowersResponse response = FollowersPresenterSpy.getFollowers(validRequest);
         Assertions.assertEquals(successResponse, response);
     }
 
     @Test
-    public void testGetFollowees_invalidRequest_returnsNoFollowees() throws IOException {
+    public void testGetFollowees_invalidRequest_returnsNoFollowees() throws IOException, TweeterRemoteException {
         FollowersResponse response = FollowersPresenterSpy.getFollowers(invalidRequest);
         Assertions.assertEquals(failureResponse, response);
     }

@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.RegisterServiceProxy;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
@@ -22,7 +23,7 @@ public class RegisterPresenterTest {
     private RegisterPresenter registerPresenterSpy;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User user1 = new User("test", "user", "user1", null);
         validRequest = new RegisterRequest("test", "user", "user1", "password");
         invalidRequest = new RegisterRequest("blah", "blah", "user1", "blah");
@@ -41,13 +42,13 @@ public class RegisterPresenterTest {
     }
 
     @Test
-    public void testRegister_validRequest_validResponse() throws IOException {
+    public void testRegister_validRequest_validResponse() throws IOException, TweeterRemoteException {
         RegisterResponse response = registerPresenterSpy.register(validRequest);
         Assertions.assertEquals(validResponse, response);
     }
 
     @Test
-    public void testRegister_invalidRequest_correctResponse() throws IOException {
+    public void testRegister_invalidRequest_correctResponse() throws IOException, TweeterRemoteException {
         RegisterResponse response = registerPresenterSpy.register(invalidRequest);
         Assertions.assertEquals(invalidResponse, response);
     }

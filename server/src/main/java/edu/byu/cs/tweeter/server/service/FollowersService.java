@@ -1,10 +1,11 @@
 package edu.byu.cs.tweeter.server.service;
 
+import edu.byu.cs.tweeter.model.service.FollowersServiceInterface;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.server.dao.FollowersDAO;
 
-public class FollowersService {
+public class FollowersService implements FollowersServiceInterface {
 
     public FollowersResponse getFollowers(FollowersRequest request) {
         FollowersDAO dao = getFollowersDAO();

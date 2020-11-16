@@ -272,40 +272,41 @@ public class ServerFacade {
         return followeesIndex;
     }
 
-    public FeedResponse getFeedPage(FeedRequest request) {
-        pause(1000);
-
-        // Used in place of assert statements because Android does not support them
-        if(BuildConfig.DEBUG) {
-            if(request.getLimit() < 0) {
-                throw new AssertionError();
-            }
-
-            if(request.getUser() == null) {
-                throw new AssertionError();
-            }
-        }
-
-        List<Status> allStati;
-        if (request.isStory())
-            allStati = getDummyStory();
-        else
-            allStati = getDummyFeed();
-        List<Status> responseStati = new ArrayList<>(request.getLimit());
-
-        boolean hasMorePages = false;
-
-        if(request.getLimit() > 0) {
-            int statiIndex = getFeedStartingIndex(request.getLastStatus(), allStati);
-
-            for(int limitCounter = 0; statiIndex < allStati.size() && limitCounter < request.getLimit(); statiIndex++, limitCounter++) {
-                responseStati.add(allStati.get(statiIndex));
-            }
-
-            hasMorePages = statiIndex < allStati.size();
-        }
-
-        return new FeedResponse(responseStati, hasMorePages);
+    public FeedResponse getFeed(FeedRequest request) throws TweeterRemoteException {
+        return server.getFeed(request);
+//        pause(1000);
+//
+//        // Used in place of assert statements because Android does not support them
+//        if(BuildConfig.DEBUG) {
+//            if(request.getLimit() < 0) {
+//                throw new AssertionError();
+//            }
+//
+//            if(request.getUser() == null) {
+//                throw new AssertionError();
+//            }
+//        }
+//
+//        List<Status> allStati;
+//        if (request.isStory())
+//            allStati = getDummyStory();
+//        else
+//            allStati = getDummyFeed();
+//        List<Status> responseStati = new ArrayList<>(request.getLimit());
+//
+//        boolean hasMorePages = false;
+//
+//        if(request.getLimit() > 0) {
+//            int statiIndex = getFeedStartingIndex(request.getLastStatus(), allStati);
+//
+//            for(int limitCounter = 0; statiIndex < allStati.size() && limitCounter < request.getLimit(); statiIndex++, limitCounter++) {
+//                responseStati.add(allStati.get(statiIndex));
+//            }
+//
+//            hasMorePages = statiIndex < allStati.size();
+//        }
+//
+//        return new FeedResponse(responseStati, hasMorePages);
     }
 
     private int getFeedStartingIndex(Status lastStatus, List<Status> allStati) {

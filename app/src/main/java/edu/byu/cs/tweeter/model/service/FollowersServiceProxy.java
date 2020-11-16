@@ -10,7 +10,7 @@ import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 /**
  * business logic for getting followers
  */
-public class FollowersServiceProxy extends ServiceProxy {
+public class FollowersServiceProxy extends ServiceProxy implements FollowersServiceInterface {
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -22,6 +22,9 @@ public class FollowersServiceProxy extends ServiceProxy {
      * @return the followees.
      */
     public FollowersResponse getFollowers(FollowersRequest request) throws IOException, TweeterRemoteException {
+        request.setFollowee(stripImages(request.getFollowee()));
+        request.setLastFollower(stripImages(request.getLastFollower()));
+
         FollowersResponse response = getServerFacade().getFollowers(request);
 
         if (response.isSuccess()) {

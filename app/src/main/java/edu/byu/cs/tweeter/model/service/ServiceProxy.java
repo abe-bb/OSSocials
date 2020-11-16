@@ -42,4 +42,15 @@ public class ServiceProxy {
     ServerFacade getServerFacade() {
         return new ServerFacade();
     }
+
+    protected User stripImages(User user) {
+        if (user == null) {
+            return null;
+        }
+        if (user.getImageBytes() == null) {
+            return user;
+        }
+        User newUser = new User(user.getFirstName(), user.getLastName(), user.getAlias(), user.getImageUrl());
+        return newUser;
+    }
 }

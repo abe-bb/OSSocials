@@ -11,6 +11,7 @@ import java.util.Arrays;
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
@@ -30,7 +31,7 @@ public class FollowersServiceProxyTest {
      * requests.
      */
     @BeforeEach
-    public void setup() {
+    public void setup() throws TweeterRemoteException {
         User currentUser = new User("FirstName", "LastName", null);
 
         User resultUser1 = new User("FirstName1", "LastName1",
@@ -65,7 +66,7 @@ public class FollowersServiceProxyTest {
      * @throws IOException if an IO error occurs.
      */
     @Test
-    public void testGetFollowees_validRequest_correctResponse() throws IOException {
+    public void testGetFollowees_validRequest_correctResponse() throws IOException, TweeterRemoteException {
         FollowersResponse response = followingServiceSpy.getFollowers(validRequest);
         Assertions.assertEquals(successResponse, response);
     }
@@ -77,7 +78,7 @@ public class FollowersServiceProxyTest {
      * @throws IOException if an IO error occurs.
      */
     @Test
-    public void testGetFollowees_validRequest_loadsProfileImages() throws IOException {
+    public void testGetFollowees_validRequest_loadsProfileImages() throws IOException, TweeterRemoteException {
         FollowersResponse response = followingServiceSpy.getFollowers(validRequest);
 
         for(User user : response.getFollowers()) {
@@ -92,7 +93,7 @@ public class FollowersServiceProxyTest {
      * @throws IOException if an IO error occurs.
      */
     @Test
-    public void testGetFollowees_invalidRequest_returnsNoFollowees() throws IOException {
+    public void testGetFollowees_invalidRequest_returnsNoFollowees() throws IOException, TweeterRemoteException {
         FollowersResponse response = followingServiceSpy.getFollowers(invalidRequest);
         Assertions.assertEquals(failureResponse, response);
     }

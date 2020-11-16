@@ -15,7 +15,12 @@ public class FeedRequest {
     private Status lastStatus;
     private int limit;
     private boolean story;
-    private final AuthToken token;
+
+    public void setToken(AuthToken token) {
+        this.token = token;
+    }
+
+    private AuthToken token;
 
     /**
      * Constructs a new FeedRequest
@@ -30,6 +35,29 @@ public class FeedRequest {
         this.limit = limit;
         this.story = story;
         this.token = token;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setLastStatus(Status lastStatus) {
+        this.lastStatus = lastStatus;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public void setStory(boolean story) {
+        this.story = story;
+    }
+
+    public AuthToken getToken() {
+        return token;
+    }
+
+    public FeedRequest() {
     }
 
     public User getUser() {

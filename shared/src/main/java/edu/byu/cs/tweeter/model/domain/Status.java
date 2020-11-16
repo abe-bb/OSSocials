@@ -6,7 +6,19 @@ import java.util.Objects;
 public class Status {
     private User author;
     private Instant timeOfAuthorship;
-    private CharSequence text;
+    private String text;
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public void setTimeOfAuthorship(Instant timeOfAuthorship) {
+        this.timeOfAuthorship = timeOfAuthorship;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     /**
      * Constructor for a Status
@@ -14,7 +26,7 @@ public class Status {
      * @param timeOfAuthorship the moment in time that this status was authored
      * @param text the text of the status
      */
-    public Status(User author, Instant timeOfAuthorship, CharSequence text) {
+    public Status(User author, Instant timeOfAuthorship, String text) {
         this.author = author;
         this.timeOfAuthorship = timeOfAuthorship;
         this.text = text;
