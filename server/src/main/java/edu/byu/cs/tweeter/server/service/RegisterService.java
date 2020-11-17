@@ -1,7 +1,5 @@
 package edu.byu.cs.tweeter.server.service;
 
-import java.io.IOException;
-
 import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.RegisterServiceInterface;
@@ -14,12 +12,12 @@ public class RegisterService extends AuthenticationService implements RegisterSe
     public RegisterResponse register(RegisterRequest request) {
         RegisterDAO dao = getRegisterDAO();
         User user = dao.register(request.getFirstName(), request.getLastName(), request.getAlias(), hashPassword(request.getPassword()));
-        AuthToken token = dao.getToken(user);
+        AuthToken token = dao.createToken(user);
 
         return new RegisterResponse(user, token);
     }
 
-    private RegisterDAO getRegisterDAO() {
+    RegisterDAO getRegisterDAO() {
         return new RegisterDAO();
     }
 }

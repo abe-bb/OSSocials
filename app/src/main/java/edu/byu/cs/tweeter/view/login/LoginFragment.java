@@ -56,7 +56,7 @@ public class LoginFragment extends Fragment implements LoginPresenter.View, Text
                     getResources().getString(R.string.logging_in), Toast.LENGTH_LONG);
             loggingInToast.show();
 
-            LoginRequest request = new LoginRequest("DummyUser", "DummyPassword");
+            LoginRequest request = new LoginRequest(username.getText().toString(), password.getText().toString());
             LoginTask loginTask = new LoginTask(presenter, this);
             loginTask.execute(request);
         });

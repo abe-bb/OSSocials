@@ -10,17 +10,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import edu.byu.cs.tweeter.model.service.request.FeedRequest;
+import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowersRequest;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
 import edu.byu.cs.tweeter.model.service.request.RegisterRequest;
+import edu.byu.cs.tweeter.model.service.request.TwitRequest;
+import edu.byu.cs.tweeter.model.service.request.UserDetailRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
+import edu.byu.cs.tweeter.model.service.response.FollowResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.model.service.response.LoginResponse;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.model.service.response.RegisterResponse;
+import edu.byu.cs.tweeter.model.service.response.TwitResponse;
+import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
 public class Server {
     private final String baseAPI = "https://x5404fmdia.execute-api.us-west-2.amazonaws.com/Beta";
@@ -84,6 +90,36 @@ public class Server {
         LogoutResponse response = gson.fromJson(stringResponse, LogoutResponse.class);
         return response;
 
+    }
+
+    public TwitResponse sendTwit(TwitRequest request) throws TweeterRemoteException {
+        String urlString = baseAPI + "/sendtwit";
+
+        String stringResponse = makeAPICall(urlString, "POST", request);
+
+        Gson gson = new Gson();
+        TwitResponse response = gson.fromJson(stringResponse, TwitResponse.class);
+        return response;
+    }
+
+    public UserDetailResponse getUserDetails(UserDetailRequest request) throws TweeterRemoteException {
+        String urlString = baseAPI + "/getuserdetails";
+
+        String stringResponse = makeAPICall(urlString, "POST", request);
+
+        Gson gson = new Gson();
+        UserDetailResponse response = gson.fromJson(stringResponse, UserDetailResponse.class);
+        return response;
+    }
+
+    public FollowResponse follow(FollowRequest request) throws TweeterRemoteException {
+        String urlString = baseAPI + "/follow";
+
+        String stringResponse = makeAPICall(urlString, "POST", request);
+
+        Gson gson = new Gson();
+        FollowResponse response = gson.fromJson(stringResponse, FollowResponse.class);
+        return response;
     }
 
     private String makeAPICall(String apiURL, String method, Object request) throws TweeterRemoteException {

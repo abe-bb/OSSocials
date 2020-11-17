@@ -5,15 +5,15 @@ import java.util.Objects;
 
 public class Status {
     private User author;
-    private Instant timeOfAuthorship;
+    private String timeOfCreation;
     private String text;
 
     public void setAuthor(User author) {
         this.author = author;
     }
 
-    public void setTimeOfAuthorship(Instant timeOfAuthorship) {
-        this.timeOfAuthorship = timeOfAuthorship;
+    public void setTimeOfCreation(Instant timeOfCreation) {
+        this.timeOfCreation = timeOfCreation.toString();
     }
 
     public void setText(String text) {
@@ -23,27 +23,31 @@ public class Status {
     /**
      * Constructor for a Status
      * @param author the user who authored this status
-     * @param timeOfAuthorship the moment in time that this status was authored
+     * @param timeOfCreation the moment in time that this status was authored
      * @param text the text of the status
      */
-    public Status(User author, Instant timeOfAuthorship, String text) {
+    public Status(User author, Instant timeOfCreation, String text) {
         this.author = author;
-        this.timeOfAuthorship = timeOfAuthorship;
+        this.timeOfCreation = timeOfCreation.toString();
         this.text = text;
     }
 
     public Status() {
         author = null;
-        timeOfAuthorship = null;
+        timeOfCreation = null;
         text = null;
+    }
+
+    public void setTimeOfCreation(String timeOfCreation) {
+        this.timeOfCreation = timeOfCreation;
     }
 
     public User getAuthor() {
         return author;
     }
 
-    public Instant getTimeOfAuthorship() {
-        return timeOfAuthorship;
+    public String getTimeOfCreation() {
+        return timeOfCreation;
     }
 
     public CharSequence getText() {
@@ -56,12 +60,12 @@ public class Status {
         if (o == null || getClass() != o.getClass()) return false;
         Status status = (Status) o;
         return Objects.equals(author, status.author) &&
-                Objects.equals(timeOfAuthorship, status.timeOfAuthorship) &&
+                Objects.equals(timeOfCreation, status.timeOfCreation) &&
                 Objects.equals(text, status.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(author, timeOfAuthorship, text);
+        return Objects.hash(author, timeOfCreation, text);
     }
 }

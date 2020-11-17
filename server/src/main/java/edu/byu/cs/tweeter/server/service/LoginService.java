@@ -1,8 +1,5 @@
 package edu.byu.cs.tweeter.server.service;
 
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
-
-import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.LoginServiceInterface;
 import edu.byu.cs.tweeter.model.service.request.LoginRequest;
@@ -17,7 +14,12 @@ public class LoginService extends AuthenticationService implements LoginServiceI
         String hashedPassword = hashPassword(request.getPassword());
         User user = dao.authenticateUser(request.getAlias(), hashedPassword);
 
-        return new LoginResponse(user, dao.getToken(user));
+        if (user == null || hashedPassword == null) {
+            return new LoginResponse("failed login");
+        }
+        else {
+            return new LoginResponse(user, dao.createToken(user));
+        }
     }
 
     LoginDAO getLoginDAO() {

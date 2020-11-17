@@ -10,6 +10,10 @@ import edu.byu.cs.tweeter.server.dao.StoryDAO;
 public class FeedService implements FeedServiceInterface {
     @Override
     public FeedResponse getFeed(FeedRequest request) {
+        if (request.getUser() == null) {
+            return new FeedResponse("invalid request");
+        }
+
         if (request.isStory()) {
             StoryDAO dao = getStoryDAO();
             return dao.getStory(request);

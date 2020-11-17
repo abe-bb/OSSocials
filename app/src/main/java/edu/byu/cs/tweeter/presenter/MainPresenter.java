@@ -26,17 +26,17 @@ public class MainPresenter {
     public interface View {
     }
 
-    public TwitResponse sendTwit(TwitRequest request) {
+    public TwitResponse sendTwit(TwitRequest request) throws TweeterRemoteException {
         MainServicesProxy service = getMainService();
         return service.sendTwit(request);
     }
 
-    public UserDetailResponse getUserDetails(UserDetailRequest request) throws IOException {
+    public UserDetailResponse getUserDetails(UserDetailRequest request) throws IOException, TweeterRemoteException {
         MainServicesProxy service = getMainService();
         return service.getUserDetails(request);
     }
 
-    public FollowResponse follow(FollowRequest request) {
+    public FollowResponse follow(FollowRequest request) throws TweeterRemoteException {
         MainServicesProxy service = getMainService();
         return service.follow(request);
     }

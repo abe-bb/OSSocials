@@ -8,7 +8,8 @@ import edu.byu.cs.tweeter.server.dao.TwitDAO;
 public class TwitService implements TwitServiceInterface {
     @Override
     public TwitResponse sendTwit(TwitRequest request) {
-        return null;
+        TwitDAO dao = getTwitDAO();
+        return dao.sendTwit(request);
     }
 
     private TwitDAO getTwitDAO() {

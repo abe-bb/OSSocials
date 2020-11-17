@@ -9,10 +9,10 @@ public class LogoutService implements LogoutServiceInterface {
     @Override
     public LogoutResponse logout(LogoutRequest request) {
         LogoutDAO dao = getLogoutDAO();
-        return dao.logout(request.getLoggedInUser(), request.getAuthToken());
+        return new LogoutResponse(dao.logout(request.getLoggedInUser(), request.getAuthToken()));
     }
 
-    private LogoutDAO getLogoutDAO() {
+    LogoutDAO getLogoutDAO() {
         return new LogoutDAO();
     }
 }

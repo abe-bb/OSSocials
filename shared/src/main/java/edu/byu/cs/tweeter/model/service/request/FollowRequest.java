@@ -6,16 +6,38 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
 public class FollowRequest {
-    private final User follower;
-    private final User followee;
-    private final boolean unfollow;
-    private final AuthToken token;
+    private User follower;
+    private User followee;
+    private boolean unfollow;
+    private AuthToken authToken;
 
-    public FollowRequest(User follower, User followee, boolean unfollow, AuthToken token) {
+    public FollowRequest(User follower, User followee, boolean unfollow, AuthToken authToken) {
         this.follower = follower;
         this.followee = followee;
         this.unfollow = unfollow;
-        this.token = token;
+        this.authToken = authToken;
+    }
+
+    public FollowRequest() {}
+
+    public void setFollower(User follower) {
+        this.follower = follower;
+    }
+
+    public void setFollowee(User followee) {
+        this.followee = followee;
+    }
+
+    public void setUnfollow(boolean unfollow) {
+        this.unfollow = unfollow;
+    }
+
+    public AuthToken getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
     }
 
     public User getFollower() {

@@ -7,25 +7,25 @@ import edu.byu.cs.tweeter.model.domain.Status;
 
 public class TwitRequest {
     private Status twit;
-    private AuthToken token;
+    private AuthToken authToken;
 
     public TwitRequest() {}
 
-    public TwitRequest(Status twit, AuthToken token) {
+    public TwitRequest(Status twit, AuthToken authToken) {
         this.twit = twit;
-        this.token = token;
+        this.authToken = authToken;
     }
 
     public void setTwit(Status twit) {
         this.twit = twit;
     }
 
-    public AuthToken getToken() {
-        return token;
+    public AuthToken getAuthToken() {
+        return authToken;
     }
 
-    public void setToken(AuthToken token) {
-        this.token = token;
+    public void setAuthToken(AuthToken authToken) {
+        this.authToken = authToken;
     }
 
     public Status getTwit() {

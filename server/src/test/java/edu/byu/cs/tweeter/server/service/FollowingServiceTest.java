@@ -14,7 +14,7 @@ import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.server.dao.FollowingDAO;
 
-public class FollowingServiceImplTest {
+public class FollowingServiceTest {
 
     private FollowingRequest request;
     private FollowingResponse expectedResponse;

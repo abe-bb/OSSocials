@@ -12,6 +12,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.domain.UserContextualDetails;
+import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.MainServicesProxy;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
 import edu.byu.cs.tweeter.model.service.request.LogoutRequest;
@@ -48,7 +49,7 @@ public class MainPresenterTest {
     private MainPresenter mainPresenterSpy;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setup() throws IOException, TweeterRemoteException {
         User author = new User("test", "user", "testyMcTestFace", null);
         User viewee = new User("test", "user", "theOneBeingViewed", null);
         Status twit = new Status(author, Instant.now(), "this is my twit. It says things");
@@ -96,13 +97,13 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void testSendTwit_validRequest_validResponse() {
+    public void testSendTwit_validRequest_validResponse() throws TweeterRemoteException {
         TwitResponse response = mainPresenterSpy.sendTwit(validTwitRequest);
         Assertions.assertEquals(validTwitResponse, response);
     }
 
     @Test
-    public void testSendTwit_invalidRequest_correctResponse() {
+    public void testSendTwit_invalidRequest_correctResponse() throws TweeterRemoteException {
         TwitResponse response = mainPresenterSpy.sendTwit(invalidTwitRequest);
         System.out.println(response.equals(invalidTwitResponse));
         Assertions.assertEquals(invalidTwitResponse, response);
@@ -110,37 +111,37 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void testGetUserDetails_validRequest_validResponse() throws IOException {
+    public void testGetUserDetails_validRequest_validResponse() throws IOException, TweeterRemoteException {
         UserDetailResponse response = mainPresenterSpy.getUserDetails(validDetailRequest);
         Assertions.assertEquals(validDetailResponse, response);
     }
 
     @Test
-    public void testGetUserDetails_invalidRequest_correctResponse() throws IOException {
+    public void testGetUserDetails_invalidRequest_correctResponse() throws IOException, TweeterRemoteException {
         UserDetailResponse response = mainPresenterSpy.getUserDetails(invalidDetailRequest);
         Assertions.assertEquals(invalidDetailResponse, response);
     }
 
     @Test
-    public void testFollow_validRequest_validResponse() {
+    public void testFollow_validRequest_validResponse() throws TweeterRemoteException {
         FollowResponse response = mainPresenterSpy.follow(validFollowRequest);
         Assertions.assertEquals(validFollowResponse, response);
     }
 
     @Test
-    public void testFollow_invalidRequest_correctResponse() {
+    public void testFollow_invalidRequest_correctResponse() throws TweeterRemoteException {
         FollowResponse response = mainPresenterSpy.follow(invalidFollowRequest);
         Assertions.assertEquals(invalidFollowResponse, response);
     }
 
     @Test
-    public void testLogout_validRequest_validResponse() {
+    public void testLogout_validRequest_validResponse() throws TweeterRemoteException {
         LogoutResponse response = mainPresenterSpy.logout(validLogoutRequest);
         Assertions.assertEquals(validLogoutResponse, response);
     }
 
     @Test
-    public void testLogout_invalidRequest_correctResponse() {
+    public void testLogout_invalidRequest_correctResponse() throws TweeterRemoteException {
         LogoutResponse response = mainPresenterSpy.logout(invalidLogoutRequest);
         Assertions.assertEquals(invalidLogoutResponse, response);
     }

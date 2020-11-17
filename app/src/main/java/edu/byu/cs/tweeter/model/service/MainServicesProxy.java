@@ -2,6 +2,7 @@ package edu.byu.cs.tweeter.model.service;
 
 import java.io.IOException;
 
+import edu.byu.cs.tweeter.model.domain.Status;
 import edu.byu.cs.tweeter.model.net.ServerFacade;
 import edu.byu.cs.tweeter.model.net.TweeterRemoteException;
 import edu.byu.cs.tweeter.model.service.request.FollowRequest;
@@ -13,14 +14,20 @@ import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 import edu.byu.cs.tweeter.model.service.response.UserDetailResponse;
 
-public class MainServicesProxy extends ServiceProxy implements TwitServiceInterface, UserDetailServiceInterface, LogoutServiceInterface {
+public class MainServicesProxy extends ServiceProxy implements TwitServiceInterface, UserDetailServiceInterface, LogoutServiceInterface, FollowServiceInterface {
 
-    public TwitResponse sendTwit(TwitRequest request) {
+    public TwitResponse sendTwit(TwitRequest request) throws TweeterRemoteException {
+        Status status = request.getTwit();
+        status.setAuthor(stripImages(status.getAuthor()));
+        request.setTwit(status);
         ServerFacade server = getServerFacade();
         return server.sendTwit(request);
     }
 
-    public UserDetailResponse getUserDetails(UserDetailRequest request) throws IOException {
+    public UserDetailResponse getUserDetails(UserDetailRequest request) throws IOException, TweeterRemoteException {
+        request.setViewee(stripImages(request.getViewee()));
+        request.setViewer(stripImages(request.getViewer()));
+
         ServerFacade server = getServerFacade();
         UserDetailResponse response = server.getUserDetails(request);
         if (response.isSuccess()) {
@@ -29,7 +36,10 @@ public class MainServicesProxy extends ServiceProxy implements TwitServiceInterf
         return response;
     }
 
-    public FollowResponse follow(FollowRequest request) {
+    public FollowResponse follow(FollowRequest request) throws TweeterRemoteException {
+        request.setFollowee(stripImages(request.getFollowee()));
+        request.setFollower(stripImages(request.getFollower()));
+
         ServerFacade server = getServerFacade();
         return server.follow(request);
     }

@@ -5,7 +5,7 @@ import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.response.LogoutResponse;
 
 public class LogoutDAO {
-    public LogoutResponse logout(User loggedInUser, AuthToken token) {
-        return new LogoutResponse(true);
+    public boolean logout(User loggedInUser, AuthToken token) {
+        return true;
     }
 }

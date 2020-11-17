@@ -5,6 +5,9 @@ import edu.byu.cs.tweeter.model.service.response.TwitResponse;
 
 public class TwitDAO {
     public TwitResponse sendTwit(TwitRequest request) {
-        return new TwitResponse(request.getTwit());
+
+        TwitResponse response = new TwitResponse(request.getTwit());
+        System.out.println(request.toString());
+        return response;
     }
 }

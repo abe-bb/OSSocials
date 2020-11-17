@@ -4,7 +4,7 @@ import edu.byu.cs.tweeter.model.domain.AuthToken;
 import edu.byu.cs.tweeter.model.domain.User;
 
 public class AuthenticationDAO {
-    public AuthToken getToken(User user) {
+    public AuthToken createToken(User user) {
         return new AuthToken(user.getAlias() + " AuthToken");
     }
 }

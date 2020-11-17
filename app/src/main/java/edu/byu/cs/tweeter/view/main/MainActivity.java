@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
 
     @Override
     public void twitSent(TwitResponse response) {
-        Toast.makeText(this, getString(R.string.sent), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.sent), Toast.LENGTH_SHORT).show();
 
     }
 

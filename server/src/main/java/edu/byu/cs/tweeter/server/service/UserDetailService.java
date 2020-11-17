@@ -16,7 +16,7 @@ public class UserDetailService implements UserDetailServiceInterface {
         return new UserDetailResponse(details);
     }
 
-    private UserDetailDAO getUserDetailDAO() {
+    UserDetailDAO getUserDetailDAO() {
         return new UserDetailDAO();
     }
 }

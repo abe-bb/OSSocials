@@ -5,6 +5,10 @@ import java.util.Objects;
 public class FollowResponse extends Response {
     boolean unfollow;
 
+    public void setUnfollow(boolean unfollow) {
+        this.unfollow = unfollow;
+    }
+
     public FollowResponse(boolean success, boolean unfollow) {
         super(true);
         this.unfollow = unfollow;
