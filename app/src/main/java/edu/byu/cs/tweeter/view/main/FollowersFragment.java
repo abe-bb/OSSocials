@@ -140,7 +140,7 @@ public class FollowersFragment extends Fragment implements FollowersPresenter.Vi
             currentUser = user;
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
             userAlias.setText(user.getAlias());
-            userName.setText(user.getName());
+            userName.setText(user.fullName());
         }
     }
 

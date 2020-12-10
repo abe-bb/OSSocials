@@ -1,19 +1,28 @@
 package edu.byu.cs.tweeter.model.domain;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Represents a user in the system.
  */
+@DynamoDBDocument
 public class User implements Comparable<User>, Serializable {
 
-    private String firstName;
-    private String lastName;
-    private String alias;
-    private String imageUrl;
-    private byte [] imageBytes;
-    private User() {}
+    String firstName;
+    String lastName;
+    String alias;
+    String imageUrl;
+    byte [] imageBytes;
+
+    public User() {
+    }
 
     public User(String alias) {
         firstName = null;
@@ -33,30 +42,15 @@ public class User implements Comparable<User>, Serializable {
         this.imageUrl = imageURL;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getName() {
+    public String fullName() {
         return String.format("%s %s", firstName, lastName);
     }
 
-    public String getAlias() {
-        return alias;
-    }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
+    @DynamoDBIgnore
     public byte [] getImageBytes() {
         return imageBytes;
     }
-
     public void setImageBytes(byte[] imageBytes) {
         this.imageBytes = imageBytes;
     }
@@ -89,18 +83,34 @@ public class User implements Comparable<User>, Serializable {
         return this.getAlias().compareTo(user.getAlias());
     }
 
+    @DynamoDBAttribute
+    public String getFirstName() {
+        return firstName;
+    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    @DynamoDBAttribute
+    public String getLastName() {
+        return lastName;
+    }
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    @DynamoDBAttribute
+    public String getAlias() {
+        return alias;
+    }
     public void setAlias(String alias) {
         this.alias = alias;
     }
 
+    @DynamoDBAttribute
+    public String getImageUrl() {
+        return imageUrl;
+    }
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }

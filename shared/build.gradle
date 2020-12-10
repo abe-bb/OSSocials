@@ -6,3 +6,8 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 }
+
+dependencies {
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-dynamodb
+    implementation group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.547'
+}

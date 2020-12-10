@@ -135,7 +135,7 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
             currentUser = user;
             userImage.setImageDrawable(ImageUtils.drawableFromByteArray(user.getImageBytes()));
             userAlias.setText(user.getAlias());
-            userName.setText(user.getName());
+            userName.setText(user.fullName());
         }
     }
 

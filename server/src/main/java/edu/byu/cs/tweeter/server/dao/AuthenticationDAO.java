@@ -7,4 +7,12 @@ public class AuthenticationDAO {
     public AuthToken createToken(User user) {
         return new AuthToken(user.getAlias() + " AuthToken");
     }
+
+    AuthToken getToken() {
+        return null;
+    }
+
+    boolean deleteTokens() {
+        return true;
+    }
 }
