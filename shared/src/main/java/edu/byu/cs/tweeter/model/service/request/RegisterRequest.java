@@ -61,7 +61,7 @@ public class RegisterRequest {
     public RegisterRequest(String firstName, String lastName, String alias, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.alias = alias;
+        this.alias = "@" + alias;
         this.password = password;
         this.photo = null;
     }
@@ -69,7 +69,7 @@ public class RegisterRequest {
     public RegisterRequest(String firstName, String lastName, String alias, String password, byte[] photo) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.alias = alias;
+        this.alias = "@" + alias;
         this.password = password;
         this.photo = photo;
     }

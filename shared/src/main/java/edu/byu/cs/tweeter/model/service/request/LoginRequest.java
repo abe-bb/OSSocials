@@ -20,7 +20,7 @@ public class LoginRequest implements Serializable {
      * @param password the password of the user to be logged in.
      */
     public LoginRequest(String alias, String password) {
-        this.alias = alias;
+        this.alias = "@" + alias;
         this.password = password;
     }
 

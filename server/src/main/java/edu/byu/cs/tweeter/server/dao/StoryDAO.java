@@ -20,10 +20,15 @@ import edu.byu.cs.tweeter.model.service.request.FeedRequest;
 import edu.byu.cs.tweeter.model.service.response.FeedResponse;
 
 public class StoryDAO {
-    public List<StoryStatusModel> getStory(User user, Status lastStatus) {
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
-        DynamoDBMapper mapper = new DynamoDBMapper(client);
+    AmazonDynamoDB client;
+    DynamoDBMapper mapper;
 
+    public StoryDAO() {
+        client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
+        mapper = new DynamoDBMapper(client);
+    }
+
+    public List<StoryStatusModel> getStory(User user, Status lastStatus) {
         String condition = "#alias = :alias and #sortKey < :sortKey";
 
         HashMap<String, String> nameMap = new HashMap<>();
@@ -49,9 +54,6 @@ public class StoryDAO {
     }
 
     public void addStatus(Status status) {
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
-        DynamoDBMapper mapper = new DynamoDBMapper(client);
-
         StoryStatusModel statusModel = new StoryStatusModel(status);
 
         mapper.save(statusModel);

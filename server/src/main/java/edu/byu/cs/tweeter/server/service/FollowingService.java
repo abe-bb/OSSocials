@@ -1,14 +1,21 @@
 package edu.byu.cs.tweeter.server.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.byu.cs.tweeter.model.domain.Follow;
+import edu.byu.cs.tweeter.model.domain.User;
 import edu.byu.cs.tweeter.model.service.FollowingServiceInterface;
 import edu.byu.cs.tweeter.model.service.request.FollowingRequest;
+import edu.byu.cs.tweeter.model.service.response.FollowersResponse;
 import edu.byu.cs.tweeter.model.service.response.FollowingResponse;
 import edu.byu.cs.tweeter.server.dao.FollowingDAO;
+import edu.byu.cs.tweeter.server.dao.FollowsDAO;
 
 /**
  * Contains the business logic for getting the users a user is following.
  */
-public class FollowingService implements FollowingServiceInterface {
+public class FollowingService extends AuthenticatedService implements FollowingServiceInterface {
 
     /**
      * Returns the users that the user specified in the request is following. Uses information in
@@ -21,7 +28,29 @@ public class FollowingService implements FollowingServiceInterface {
      */
     @Override
     public FollowingResponse getFollowees(FollowingRequest request) {
-        return getFollowingDAO().getFollowees(request);
+        if (authorized(request.getFollower(), request.getAuthToken())) {
+            FollowsDAO followsDAO = getFollowsDAO();
+
+            List<Follow> follows = followsDAO.getFollowees(request.getFollower(), request.getLastFollowee());
+
+            ArrayList<User> followingPage = new ArrayList<>();
+
+            boolean hasMorePages = false;
+            for (Follow follow : follows) {
+                if (request.getLimit() <= followingPage.size()) {
+                    hasMorePages = true;
+                    break;
+                }
+
+                followingPage.add(follow.getFollowee());
+            }
+
+            return new FollowingResponse(followingPage, hasMorePages);
+        }
+        else {
+            return new FollowingResponse("Unauthorized session! Please logout and log back in again");
+        }
+//        return getFollowingDAO().getFollowees(request);
     }
 
     /**
@@ -33,5 +62,10 @@ public class FollowingService implements FollowingServiceInterface {
      */
     FollowingDAO getFollowingDAO() {
         return new FollowingDAO();
+    }
+
+
+    FollowsDAO getFollowsDAO() {
+        return new FollowsDAO();
     }
 }

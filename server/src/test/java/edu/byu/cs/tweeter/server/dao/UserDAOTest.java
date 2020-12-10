@@ -7,7 +7,7 @@ import edu.byu.cs.tweeter.model.domain.User;
 public class UserDAOTest {
     @Test
     public void testAddUser()  {
-        UsersDAO dao = new UsersDAO();
+        UserDAO dao = new UserDAO();
 
         User user = new User("Abe", "Kloo", "abeKloo", "https://example.com");
 
@@ -16,7 +16,7 @@ public class UserDAOTest {
 
     @Test
     public void testGetUser() {
-        UsersDAO dao = new UsersDAO();
+        UserDAO dao = new UserDAO();
 
         User user = new User("Abe", "Kloo", "abeKloo", "https://example.com");
 

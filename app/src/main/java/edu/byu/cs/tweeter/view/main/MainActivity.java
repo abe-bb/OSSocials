@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
         followButton.setEnabled(false);
 
         GetUserDetailTask task = new GetUserDetailTask(this, presenter);
-        task.execute(new UserDetailRequest(this.displayUser, LOGGED_IN_USER, LOGGED_IN_TOKEN));
+        UserDetailRequest request = new UserDetailRequest(LOGGED_IN_USER, LOGGED_IN_USER, LOGGED_IN_TOKEN);
+        task.execute(request);
 
         if (this.displayUser == LOGGED_IN_USER) {
             followButton.setVisibility(View.GONE);
@@ -194,25 +195,32 @@ public class MainActivity extends AppCompatActivity implements GetUserDetailTask
 
     @Override
     public void userDetailsRetrieved(UserDetailResponse response) {
-        UserContextualDetails details = response.getDetails();
-        User viewee = details.getViewee();
-        userName.setText(String.format("%s %s", viewee.getFirstName(), viewee.getLastName()));
-        userAlias.setText(viewee.getAlias());
-        userImage.setImageDrawable(ImageUtils.drawableFromByteArray(viewee.getImageBytes()));
-        followeeCount.setText(String.format(getString(R.string.followeeCount), details.getNumFollowing()));
-        followerCount.setText(String.format(getString(R.string.followerCount), details.getNumFollowers()));
+        if (response.isSuccess()) {
+            UserContextualDetails details = response.getDetails();
+            User viewee = details.getViewee();
+            userName.setText(String.format("%s %s", viewee.getFirstName(), viewee.getLastName()));
+            userAlias.setText(viewee.getAlias());
 
-        if (details.isFollowing()) {
-            followButton.setText(R.string.unfollow);
+            if (viewee.getImageBytes() != null) {
+                userImage.setImageDrawable(ImageUtils.drawableFromByteArray(viewee.getImageBytes()));
+            }
+            followeeCount.setText(String.format(getString(R.string.followeeCount), details.getNumFollowing()));
+            followerCount.setText(String.format(getString(R.string.followerCount), details.getNumFollowers()));
+
+            if (details.isFollowing()) {
+                followButton.setText(R.string.unfollow);
+            } else {
+                followButton.setText(R.string.follow);
+            }
+            followButton.setOnClickListener((View v) -> {
+                FollowTask task = new FollowTask(this, presenter);
+                FollowRequest request = new FollowRequest(LOGGED_IN_USER, displayUser, details.isFollowing(), LOGGED_IN_TOKEN);
+                task.execute(request);
+            });
         }
         else {
-            followButton.setText(R.string.follow);
+            Toast.makeText(this, response.getMessage(), Toast.LENGTH_LONG).show();
         }
-        followButton.setOnClickListener((View v) -> {
-            FollowTask task = new FollowTask(this, presenter);
-            FollowRequest request = new FollowRequest(LOGGED_IN_USER, displayUser, details.isFollowing(), LOGGED_IN_TOKEN);
-            task.execute(request);
-        });
 
         followButton.setEnabled(true);
 

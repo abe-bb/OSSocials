@@ -12,6 +12,8 @@ public class UserModel {
     String alias;
     String hashedPassword;
     String salt;
+    int numFollowers;
+    int numFollowing;
 
     public UserModel() {
     }
@@ -53,5 +55,21 @@ public class UserModel {
     }
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    @DynamoDBAttribute
+    public int getNumFollowers() {
+        return numFollowers;
+    }
+    public void setNumFollowers(int numFollowers) {
+        this.numFollowers = numFollowers;
+    }
+
+    @DynamoDBAttribute
+    public int getNumFollowing() {
+        return numFollowing;
+    }
+    public void setNumFollowing(int numFollowing) {
+        this.numFollowing = numFollowing;
     }
 }

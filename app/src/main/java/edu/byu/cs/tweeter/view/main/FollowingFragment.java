@@ -276,12 +276,15 @@ public class FollowingFragment extends Fragment implements FollowingPresenter.Vi
         public void followeesRetrieved(FollowingResponse followingResponse) {
             List<User> followees = followingResponse.getFollowees();
 
-            lastFollowee = (followees.size() > 0) ? followees.get(followees.size() -1) : null;
+            lastFollowee = (followees != null && followees.size() > 0) ? followees.get(followees.size() -1) : null;
             hasMorePages = followingResponse.getHasMorePages();
 
             removeLoadingFooter();
             isLoading = false;
-            followingRecyclerViewAdapter.addItems(followees);
+
+            if (followees != null) {
+                followingRecyclerViewAdapter.addItems(followees);
+            }
         }
 
         /**

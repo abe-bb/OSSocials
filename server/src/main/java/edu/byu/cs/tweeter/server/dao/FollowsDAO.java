@@ -26,9 +26,15 @@ import edu.byu.cs.tweeter.model.domain.Follow;
 import edu.byu.cs.tweeter.model.domain.User;
 
 public class FollowsDAO {
+    AmazonDynamoDB client;
+    DynamoDBMapper mapper;
+
+    public FollowsDAO() {
+        client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
+        mapper = new DynamoDBMapper(client);
+    }
+
     public void addFollow(User follower, User followee) {
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
-        DynamoDBMapper mapper = new DynamoDBMapper(client);
         Follow follow = new Follow(follower, followee);
         mapper.save(follow);
 
@@ -43,8 +49,6 @@ public class FollowsDAO {
     }
 
     public void removeFollow(User follower, User followee) {
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
-        DynamoDBMapper mapper = new DynamoDBMapper(client);
         Follow follow = new Follow(follower, followee);
         mapper.delete(follow);
 //        DynamoDB db = new DynamoDB(client);
@@ -59,9 +63,6 @@ public class FollowsDAO {
     }
 
     public List<Follow> getFollowers(User followee, User lastFollower) {
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
-        DynamoDBMapper mapper = new DynamoDBMapper(client);
-
         DynamoDBQueryExpression<Follow>  expression = new DynamoDBQueryExpression<Follow>();
 
         expression.withIndexName("followee_alias-follower_alias-index");
@@ -92,12 +93,8 @@ public class FollowsDAO {
     }
 
     public List<Follow> getFollowees(User follower, User lastFollowee) {
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
-        DynamoDBMapper mapper = new DynamoDBMapper(client);
-
         DynamoDBQueryExpression<Follow>  expression = new DynamoDBQueryExpression<Follow>();
 
-//        expression.withIndexName("followee_alias-follower_alias-index");
         String condition = "#follower_alias = :fer_alias and #followee_alias >= :catch_all";
 
         HashMap<String, AttributeValue> valueMap = new HashMap<>();
@@ -122,6 +119,13 @@ public class FollowsDAO {
                 .withConsistentRead(false);
 
         return mapper.query(Follow.class, expression);
+    }
+
+    public boolean relationshipExists(User follower, User followee) {
+        Follow follow = new Follow(follower, followee);
+        Follow result = mapper.load(follow);
+
+        return result != null;
     }
 //        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
 //        DynamoDB db = new DynamoDB(client);

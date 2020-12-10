@@ -199,11 +199,14 @@ public class FeedFragment extends Fragment {
             List<Status> stati = response.getStati();
 
             hasMorePages = response.getHasMorePages();
-            lastStatus = (stati.size() > 0) ? stati.get(stati.size() - 1) : null;
+            lastStatus = (stati != null && stati.size() > 0) ? stati.get(stati.size() - 1) : null;
 
             removeLoadingFooter();
             isLoading = false;
-            recyclerViewAdapter.addItems(stati);
+
+            if (stati != null) {
+                recyclerViewAdapter.addItems(stati);
+            }
 
         }
 

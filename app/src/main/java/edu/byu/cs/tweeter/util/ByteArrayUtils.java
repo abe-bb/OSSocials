@@ -21,6 +21,9 @@ public class ByteArrayUtils {
      */
     public static byte [] bytesFromUrl(String urlString) throws IOException {
 
+        if (urlString == null)
+            return null;
+
         URL url = new URL(urlString);
         HttpURLConnection connection = null;
 
